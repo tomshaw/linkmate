@@ -77,6 +77,22 @@ export default {
         this.$router.replace({ name: "AuthPage" });
       }
     });
+
+    this.$eventHub.$on("browser:tabs:create", (to) => {
+      this.getBackgroundPage().then((backgroundPage) => {
+        if (backgroundPage) {
+          backgroundPage.createNewTab(to);
+        }
+      }).catch((err) => {});
+    });
+
+    this.getBackgroundPage().then((backgroundPage) => {
+      if (backgroundPage) {
+        const activePage = backgroundPage.getActivePage();
+        this.setActivePage(activePage);
+      }
+    }).catch((err) => {});
+
   },
   methods: {
     ...mapActions({
@@ -86,9 +102,17 @@ export default {
       loadDatabases: 'database/LOAD_DATABASES',
     }),
     ...mapMutations({
+      setActivePage: 'page/SET_ACTIVE_PAGE',
       setDatabase: 'database/SET_DATABASE',
       setCategories: 'database/SET_CATEGORIES',
     }),
+    async getBackgroundPage() {
+      try {
+        return await this.$browser.extension.getBackgroundPage().backgroundProcess
+      } catch (err) {
+        return err;
+      }
+    },
     setSession(data) {
       this.session = (data.hasAccess && data.hasAccess === true && data.user) ? data.user : false
       if (this.session) {
