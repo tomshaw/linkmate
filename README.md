@@ -1,4 +1,4 @@
-<h1><img src="https://raw.github.com/tomshaw/linkmate/master/docs/logo.png" alt="LinkMate" title="LinkMate"></h1>
+<h1><img src="docs/screenshots/logo.png" alt="LinkMate" title="LinkMate"></h1>
 
 [![Tag](https://img.shields.io/github/tag/tomshaw/linkmate.svg)](https://github.com/tomshaw/linkmate/tags)
 [![GitHub (pre-)release](https://img.shields.io/github/release/tomshaw/linkmate/all.svg)](https://github.com/tomshaw/linkmate/releases)
@@ -9,8 +9,6 @@
 ## Overview
 
 > LinkMate is a web page bookmarking application powered by Vue.js and Pouch/CouchDb. With LinkMate users can bookmark web pages and replicate their data effortlessly .
-
-<img src="docs/screenshots/logo.png" alt="LinkMate" title="LinkMate">
 
 ## Features
 
@@ -32,6 +30,7 @@ Once the application is loaded head on over to the options page and start by fil
 + [Vuex](https://vuex.vuejs.org/en) - Vuex is a state management library for Vue.js.
 + [PouchDB](https://github.com/pouchdb/pouchdb) - PouchDB is a pocket-sized database.
 + [PouchVue](https://github.com/MDSLKTR/pouch-vue) - Pouchdb bindings for Vue.js
++ [Materialize](https://github.com/Dogfalo/materialize) - Materialize, a CSS Framework based on Material Design
 
 ## Quick Setup
 
