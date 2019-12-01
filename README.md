@@ -1,10 +1,10 @@
-<h1><img src="https://github.com/tomshaw/linkmate/docs/screenshots/logo.png" alt="LinkMate" title="LinkMate"></h1>
+<h1><img src="https://github.com/tomshaw/linkmate/blob/master/docs/screenshots/logo.png" alt="LinkMate" title="LinkMate"></h1>
 
 [![Tag](https://img.shields.io/github/tag/tomshaw/linkmate.svg)](https://github.com/tomshaw/linkmate/tags)
 [![GitHub (pre-)release](https://img.shields.io/github/release/tomshaw/linkmate/all.svg)](https://github.com/tomshaw/linkmate/releases)
 [![Version npm](https://img.shields.io/npm/v/linkmate.svg)](https://www.npmjs.com/package/linkmate)
 [![Downloads npm](https://img.shields.io/npm/dt/linkmate.svg)](https://www.npmjs.com/package/linkmate)
-[![MIT license](https://img.shields.io/npm/l/linkmate.svg)](https://opensource.org/licenses/MIT)
+[![MIT license](https://img.shields.io/npm/l/linkmate.svg)](https://github.com/tomshaw/linkmate/blob/master/LICENSE)
 
 ## Overview
 
