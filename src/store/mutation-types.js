@@ -1,0 +1,2 @@
+export const UPDATE_FOO = 'UPDATE_FOO'
+export const UPDATE_OPTIONS = 'UPDATE_OPTIONS'

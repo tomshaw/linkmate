@@ -1,0 +1,78 @@
+html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  background: #000;
+  font-family: 'Roboto', sans-serif;
+  width: 340px;
+  height: 540px;
+}
+
+/* Headings */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 300;
+}
+
+h1 {
+  font-size: 33px;
+}
+
+h2 {
+  font-size: 27px;
+}
+
+h3 {
+  font-size: 23px;
+}
+
+h4 {
+  font-size: 17px;
+}
+
+h5 {
+  font-size: 13px;
+}
+
+h6 {
+  font-size: 12px;
+}
+
+.hidden {
+  opacity: 0;
+  display: none;
+  pointer-events: none;
+}
+
+.material-icons-default {
+  font-family: 'Material Icons';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;  /* Preferred icon size */
+  display: inline-block;
+  line-height: 1;
+  text-transform: none;
+  letter-spacing: normal;
+  word-wrap: normal;
+  white-space: nowrap;
+  direction: ltr;
+
+  /* Support for all WebKit browsers. */
+  -webkit-font-smoothing: antialiased;
+  /* Support for Safari and Chrome. */
+  text-rendering: optimizeLegibility;
+
+  /* Support for Firefox. */
+  -moz-osx-font-smoothing: grayscale;
+
+  /* Support for IE. */
+  font-feature-settings: 'liga';
+}
+

@@ -1,0 +1,47 @@
+{
+  "name": "LinkMate",
+  "description": "A personal web page bookmarking application browser extension.",
+  "version": null,
+  "manifest_version": 2,
+  "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
+  "icons": {
+    "128": "icons/icon128.png",
+    "48": "icons/icon48.png",
+    "16": "icons/icon16.png"
+  },
+  "browser_action": {
+    "default_title": "linkmate",
+    "default_popup": "popup/popup.html",
+    "default_icon": {
+      "128": "icons/icon128.png"
+    }
+  },
+  "background": {
+    "scripts": [
+      "./background.js"
+    ],
+    "persistent": false
+  },
+  "content_scripts": [
+    {
+      "all_frames": false,
+      "js": [
+        "./content.js"
+      ],
+      "matches": [
+        "http://*/*",
+        "https://*/*"
+      ],
+      "run_at": "document_end"
+    }
+  ],
+  "permissions": [
+    "http://*/*",
+    "https://*/*",
+    "tabs",
+    "activeTab",
+    "notifications",
+    "storage"
+  ],
+  "options_page": "options/options.html"
+}
