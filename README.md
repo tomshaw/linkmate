@@ -8,7 +8,7 @@
 
 ## Overview
 
-> LinkMate is a web page bookmarking application powered by Vue.js and Pouch/CouchDb. LinkMate a cross browser extension that bookmark web pages and replicate your data effortlessly .
+> LinkMate is a web page bookmarking application powered by Vue.js and Pouch/CouchDb. With LinkMate users can bookmark web pages and replicate their data effortlessly .
 
 <img src="docs/screenshots/logo.png" alt="LinkMate" title="LinkMate">
 
