@@ -1,4 +1,4 @@
-<h1><img src="docs/screenshots/logo.png" alt="LinkMate" title="LinkMate"></h1>
+<h1><img src="https://github.com/tomshaw/linkmate/docs/screenshots/logo.png" alt="LinkMate" title="LinkMate"></h1>
 
 [![Tag](https://img.shields.io/github/tag/tomshaw/linkmate.svg)](https://github.com/tomshaw/linkmate/tags)
 [![GitHub (pre-)release](https://img.shields.io/github/release/tomshaw/linkmate/all.svg)](https://github.com/tomshaw/linkmate/releases)
