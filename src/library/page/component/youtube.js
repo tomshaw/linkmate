@@ -7,13 +7,20 @@ export default class YouTubeHandler {
       let videoId = this.getYouTubeVideoID(info.location.url);
 
       if (!this.title) {
-        this.title = document.title
+        let title = document.querySelector('#info h1.title');
+        if (title) {
+          this.title = title.innerText;
+        } else {
+          this.title = document.title
+        }
       }
-  
+
       if (!this.description) {
-        let headers = document.getElementsByTagName('h1');
-        if (headers.length) {
-          this.description = headers[0].textContent;
+        let description = document.getElementById('description');
+        if (description) {
+          this.description = description.textContent;
+        } else {
+          this.description = 'Please enter a description.'
         }
       }
 
@@ -29,13 +36,16 @@ export default class YouTubeHandler {
       if (!this.image && videoId) {
         this.image = `http://img.youtube.com/vi/${videoId}/0.jpg`
       }
+
+      this.images = [];
+      if (this.image) {
+        this.images.push({ src: this.image, alt: this.title, width: 480, height: 360 });
+      }
   
       if (!this.url) {
         const href = window.location.href;
         this.url = href ? href : false;
       }
-
-      console.log('this.images', this.images);
 
       resolve({
         match: info.match,
@@ -44,7 +54,7 @@ export default class YouTubeHandler {
         image: this.image,
         images: this.images,
         url: this.url
-      })
+      });
 
     });
     
