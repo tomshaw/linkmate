@@ -107,9 +107,9 @@ export default {
       }
     },
     onLaunchClick(item) {
-      this.$eventHub.$emit("background:page", (backgroundPage) => {
-        backgroundPage.createNewTab(item.url);
-      });
+      if (item && item.url) {
+        this.$eventHub.$emit("browser:tabs:create", item.url);
+      }
     }
   }
 };

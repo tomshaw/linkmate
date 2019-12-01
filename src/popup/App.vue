@@ -59,7 +59,6 @@ export default {
   mounted() {
 
     getStorage(["options", "session"]).then(response => {
-      console.log('storage-response', response);
       const options = (response.options) ? response.options : {};
       const session = (response.session) ? response.session : {};
       if (options.general) {
@@ -77,7 +76,7 @@ export default {
       if (!this.session) {
         this.$router.replace({ name: "AuthPage" });
       }
-    })
+    });
   },
   methods: {
     ...mapActions({

@@ -102,8 +102,6 @@ export default {
         }
       }
 
-      console.log('this.totalSections', this.totalSections);
-
       if (this.totalSections>1) {
         this.raF = requestAnimationFrame(this.animate.bind(this));
       }

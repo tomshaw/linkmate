@@ -26,12 +26,8 @@ export default {
     AppOptions
   },
   mounted() {
-    
-    this.$eventHub.$on("background:page", () => {
-      return this.getBackgroundPage();
-    });
 
-    this.$eventHub.$on("background:image", (to) => {
+    this.$eventHub.$on("browser:tabs:create", (to) => {
       this.getBackgroundPage().then((backgroundPage) => {
         if (backgroundPage) {
           backgroundPage.createNewTab(to);

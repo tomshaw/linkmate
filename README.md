@@ -12,7 +12,7 @@
 
 ## Features
 
-Functionality you'll find in this application include:
+Functionality you'll find in this application:
 
 - Completely private web page bookmarking management and data replication.
 - Intuitive customizable interace that makes bookmarking a breeze.

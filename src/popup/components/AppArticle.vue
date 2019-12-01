@@ -137,10 +137,8 @@ export default {
     },
     clickDownloadImage() {
       const page = this.getActivePage;
-      const image = page.image ? page.image : false;
-      console.log('page', page);
-      if (image) {
-        this.$eventHub.$emit("background:image", image);
+      if (page && page.image) {
+        this.$eventHub.$emit("browser:tabs:create", page.image);
       }
     }
   }
