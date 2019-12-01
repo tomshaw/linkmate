@@ -26,15 +26,26 @@ export default {
     AppOptions
   },
   mounted() {
+    
     this.$eventHub.$on("background:page", () => {
       return this.getBackgroundPage();
     });
+
+    this.$eventHub.$on("background:image", (to) => {
+      this.getBackgroundPage().then((backgroundPage) => {
+        if (backgroundPage) {
+          backgroundPage.createNewTab(to);
+        }
+      }).catch((err) => {});
+    });
+
     this.getBackgroundPage().then((backgroundPage) => {
       if (backgroundPage) {
         const activePage = backgroundPage.getActivePage();
         this.setActivePage(activePage);
       }
     }).catch((err) => {});
+
   },
   methods: {
     ...mapMutations({

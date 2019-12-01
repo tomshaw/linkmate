@@ -134,6 +134,14 @@ export default {
         this.$eventHub.$emit("database:initialized", true);
       }).catch((err) => {});
 
+    },
+    clickDownloadImage() {
+      const page = this.getActivePage;
+      const image = page.image ? page.image : false;
+      console.log('page', page);
+      if (image) {
+        this.$eventHub.$emit("background:image", image);
+      }
     }
   }
 };

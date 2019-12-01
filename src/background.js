@@ -123,7 +123,7 @@ class BackgroundProcess {
   }
 
   createNewTab(url) {
-    browser.tabs.create({ 'url': url }).then((tab) => { });
+    browser.tabs.create({ 'url': url }).then((tab) => {});
   }
 
 }

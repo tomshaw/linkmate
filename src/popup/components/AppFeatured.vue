@@ -78,9 +78,7 @@ export default {
       const page = this.getActivePage;
       const image = page.image ? page.image : false;
       if (image) {
-        this.$eventHub.$emit("background:page", backgroundPage => {
-          backgroundPage.createNewTab(image);
-        });
+        this.$eventHub.$emit("background:image", image);
       }
     }
   }
