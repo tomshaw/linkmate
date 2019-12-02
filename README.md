@@ -8,13 +8,14 @@
 
 ## Overview
 
-> LinkMate is a web page bookmarking application powered by Vue.js and Pouch/CouchDb. With LinkMate users can bookmark web pages and replicate their data effortlessly .
+> LinkMate is the swiss army knife of web page bookmarking. Powered by PouchDB, users can create private databases of bookmarks or choose to share their data with multiple geographically spread out users in real time no matter where they are. Data replication is the foundation of LinkMate. Perfect for students, researchers or anybody who needs to save, and or share and synchronize their data instantly. LinkMate is a work in progress. If you would like to contribute or share any ideas please feel free to create a pull request or submit an issue. 
 
 ## Features
 
 Functionality you'll find in this application:
 
-- Completely private web page bookmarking management and data replication.
+- Completely private web page bookmarking management.
+- Supports both master-master and master-slave replication
 - Intuitive customizable interace that makes bookmarking a breeze.
 - Access controlled remote database authentication and authorization.  
 - Save web page banners and images with the click of a button.
@@ -25,7 +26,7 @@ Once the application is loaded head on over to the options page and start by fil
 
 ## Libraries Used
 
-+ [Vue Web Extension](https://github.com/Kocal/vue-web-extension) - A boilerplate for quickly starting a web extension with Vue, webpack 4, ESLint and more!
++ [Vue Extension](https://github.com/Kocal/vue-web-extension) - A boilerplate for quickly starting a web extension with Vue, webpack 4, ESLint and more!
 + [Vue](https://vuejs.org) - A progressive, JavaScript framework for building UI on the web.
 + [Vuex](https://vuex.vuejs.org/en) - Vuex is a state management library for Vue.js.
 + [PouchDB](https://github.com/pouchdb/pouchdb) - PouchDB is a pocket-sized database.
@@ -56,10 +57,6 @@ Watch for modifications then run `npm run build`.
 ### `npm run watch:dev`
 
 Watch for modifications then run `npm run build:dev`.
-
-It also enable [Hot Module Reloading](https://webpack.js.org/concepts/hot-module-replacement), thanks to [webpack-chrome-extension-reloader](https://github.com/rubenspgcavalcante/webpack-chrome-extension-reloader) plugin.
-
-:warning: Keep in mind that HMR only works for your **background** entry.
 
 ### `npm run build-zip`
 
