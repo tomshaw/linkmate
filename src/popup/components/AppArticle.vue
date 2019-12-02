@@ -46,6 +46,7 @@
       <div class="fixed-action-btn" style="left: 15px; bottom: 70px;">
         <a class="btn-floating btn-large red" v-on:click="$eventHub.$emit('toggle:screen', 'screen-featured')"><i class="large material-icons">mode_edit</i> </a>
         <ul>
+          <li><a class="btn-floating teal" title="Download All Images" @click="clickDownloadImages($event)"><i class="material-icons">camera_roll</i></a></li>
           <li><a class="btn-floating teal" title="Download Image" @click="clickDownloadImage($event)"><i class="material-icons">add_to_photos</i></a></li>
           <li><a class="btn-floating teal" title="Submit Page" @click="clickSubmitPage($event)"><i class="material-icons">done</i></a></li>
         </ul>
@@ -139,6 +140,12 @@ export default {
       const page = this.getActivePage;
       if (page && page.image) {
         this.$eventHub.$emit("browser:tabs:create", page.image);
+      }
+    },
+    clickDownloadImages() {
+      const page = this.getActivePage;
+      if (page && page.images && page.images.length) {
+        page.images.map((item) => this.$eventHub.$emit("browser:tabs:create", item.src));
       }
     }
   }
