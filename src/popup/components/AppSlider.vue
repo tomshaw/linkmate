@@ -179,8 +179,9 @@ export default {
     font-size: 12px;
     opacity: 0;
     user-select: none;
-    transform: translateX(-100%) translateZ(0);
+    transform: translateX(-100%);
     transition: transform 2s cubic-bezier(0.23, 1, 0.32, 1), opacity 1s cubic-bezier(0.23, 1, 0.32, 1);
+    will-change: transform;
   }
 
   &.activate-in .slide__cover {
@@ -191,7 +192,7 @@ export default {
 
   &.activate-in p {
     opacity: 1;
-    transform: translateX(0) translateZ(0);
+    transform: translateX(0);
   }
 
 }

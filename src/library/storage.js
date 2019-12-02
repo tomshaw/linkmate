@@ -1,7 +1,7 @@
 let browser = require("webextension-polyfill");
 
 const getStorage = key => {
-  return new Promise((resolve, reject) => 
+  return new Promise((resolve, reject) =>
     browser.storage.sync.get(key).then(result =>
       browser.runtime.lastError
         ? reject(Error(browser.runtime.lastError.message))
