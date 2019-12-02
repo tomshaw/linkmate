@@ -1,4 +1,6 @@
-export default class YouTubeHandler {
+import PageContent from './page'
+
+export default class YouTubeHandler extends PageContent {
 
   process(info) {
  
@@ -58,16 +60,6 @@ export default class YouTubeHandler {
 
     });
     
-  }
-
-  getYouTubeVideoID(url) {
-    const regExp = /^.*(youtu\.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
-    const match = url.match(regExp);
-    if (match && match[2].length == 11) {
-      return match[2];
-    } else {
-      return false;
-    }
   }
 
 }

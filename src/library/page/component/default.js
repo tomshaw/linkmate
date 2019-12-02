@@ -1,4 +1,6 @@
-export default class DefaultHandler {
+import PageContent from './page'
+
+export default class DefaultHandler extends PageContent {
 
   process(info) {
 
@@ -116,23 +118,6 @@ export default class DefaultHandler {
         }).catch((err) => console.log('load-image-error', err));
       }
 
-    });
-  }
-
-  preloadImage(src) {
-    return new Promise((resolve, reject) => {
-      let image = new Image();
-      image.src = src;
-      image.onload = (img) => {
-        resolve({
-          src: src,
-          width: image.width,
-          height: image.height
-        })
-      }
-      image.onerror = (err) => {
-        reject(err)
-      }
     });
   }
 }
