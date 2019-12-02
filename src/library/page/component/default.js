@@ -21,6 +21,7 @@ export default class DefaultHandler {
         selectors: [
           "meta[property='og:image']",
           "meta[name='twitter:image']",
+          "meta[name='msapplication-TileImage']",
         ]
       }, {
         property: 'url',
@@ -35,9 +36,10 @@ export default class DefaultHandler {
         let selectors = targets[i].selectors;
         for (let j = 0; j < selectors.length; j++) {
           let selector = selectors[j];
-          if (document.querySelector(selector)) {
-            let content = document.querySelector(selector).getAttribute("content");
-            if (content) {
+          let metaTag = document.querySelector(selector);
+          if (metaTag) {
+            let content = metaTag.getAttribute("content");
+            if (content && !this[property]) {
               this[property] = content;
             }
           }
