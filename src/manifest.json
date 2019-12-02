@@ -1,6 +1,6 @@
 {
   "name": "LinkMate",
-  "description": "A personal web page bookmarking application browser extension.",
+  "description": "LinkMate is the swiss army knife of web page bookmarking.",
   "version": null,
   "manifest_version": 2,
   "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
