@@ -1,5 +1,5 @@
 .wrapper {
-  background-color: #a320af;
+  background-color: #af28bb;
   position: relative;
   margin: auto;
   height: 540px;
@@ -7,7 +7,7 @@
   overflow: hidden;
   .content {
     position: relative;
-    height: 540px;
+    height: calc(540px - 50px);
     width: 340px;
     overflow: hidden;
   }
@@ -70,4 +70,13 @@
 
 [data-screen="screen-options"] .content .options {
   transform: scaleX(1);
+}
+
+.action-buttons {
+  left: 15px; 
+  bottom: 16px !important;
+}
+
+.fixed-action-btn.direction-right ul li {
+  margin: 6.5px 0 0 14px !important;
 }

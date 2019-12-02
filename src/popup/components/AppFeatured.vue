@@ -1,18 +1,21 @@
 <template>
   <div class="featured">
-    <AppSlider v-if="backgroundImages" :images="backgroundImages" />
+    <AppSlider v-if="sliderImages" :images="sliderImages" />
+    <AppButtons buttonStyle="pink darken-4" buttonIcon="home" toggleScreen="screen-article" activeScreen="screen-featured" />
   </div>
 </template>
 
 <script>
-import { mapState } from "vuex";
-import SpeechSynthesizer from "../../library/synthesizer";
-import CustomThemes from "../../library/static/themes";
-import { getStorage } from "../../library/storage";
-import AppSlider from "./AppSlider.vue";
+import { mapState } from 'vuex'
+import SpeechSynthesizer from '../../library/synthesizer'
+import CustomThemes from '../../library/static/themes'
+import { getStorage } from '../../library/storage'
+import AppSlider from './AppSlider.vue'
+import AppButtons from './AppButtons.vue'
 export default {
   components: {
-    AppSlider
+    AppSlider,
+    AppButtons
   },
   data() {
     return {
@@ -23,10 +26,7 @@ export default {
     ...mapState({
       page: state => state.page.page
     }),
-    backgroundImage: function() {
-      return this.page.image ? this.page.image : "/assets/images/background.png";
-    },
-    backgroundImages: function() {
+    sliderImages: function() {
       return this.page.images && this.page.images.length ? this.page.images : false;
     }
   },
@@ -34,10 +34,7 @@ export default {
     this.speechSynthesizer = new SpeechSynthesizer();
   },
   mounted() {
-
-    // this.$eventHub.$on("database:initialized", () => {
-    //   M.FloatingActionButton.init(document.querySelectorAll(".fixed-action-btn"), { direction: "right" });
-    // });
+    // @todo
 
     getStorage("options").then(response => {
       const options = response.options ? response.options : {};
@@ -52,10 +49,13 @@ export default {
 
       // theme settings
       if (options.theme) {
+
         const theme = options.theme;
         const wrapper = document.querySelector(".wrapper");
         const header = document.querySelector(".header");
+
         if (theme.themeId > 0) {
+
           const selected = this.themes.filter(item => {
             return item.id === theme.themeId;
           });
@@ -65,36 +65,13 @@ export default {
             wrapper.style.background = styles.backgroundColor;
             header.style.background = styles.headerColor;
           }
+
         } else {
           wrapper.style.background = theme.backgroundColor;
           header.style.background = theme.headerColor;
         }
       }
-      
     });
-  },
-  methods: {
-    clickDownloadImage() {
-      const page = this.getActivePage;
-      if (page && page.image) {
-        this.$eventHub.$emit("browser:tabs:create", page.image);
-      }
-    }
   }
 };
 </script>
-
-<style lang="scss">
-.preview {
-  &__background {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    padding: 0;
-    margin: 0;
-    overflow: hidden;
-  }
-}
-</style>

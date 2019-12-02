@@ -85,7 +85,6 @@ export default class DefaultHandler extends PageContent {
                 }
 
                 data.push({ src: image.src, alt: alternateText, width: image.naturalWidth, height: image.naturalHeight })
-
               }
             }
           }

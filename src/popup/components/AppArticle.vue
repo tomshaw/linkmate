@@ -43,22 +43,20 @@
         </div>
       </div>
 
-      <div class="fixed-action-btn" style="left: 15px; bottom: 70px;">
-        <a class="btn-floating btn-large red" v-on:click="$eventHub.$emit('toggle:screen', 'screen-featured')"><i class="large material-icons">mode_edit</i> </a>
-        <ul>
-          <li><a class="btn-floating teal" title="Download All Images" @click="clickDownloadImages($event)"><i class="material-icons">camera_roll</i></a></li>
-          <li><a class="btn-floating teal" title="Download Image" @click="clickDownloadImage($event)"><i class="material-icons">add_to_photos</i></a></li>
-          <li><a class="btn-floating teal" title="Submit Page" @click="clickSubmitPage($event)"><i class="material-icons">done</i></a></li>
-        </ul>
-      </div>
-
     </div>
+
+    <AppButtons buttonStyle="green" buttonIcon="mode_edit" toggleScreen="screen-featured" activeScreen="screen-article" />
+
   </div>
 </template>
 
 <script>
 import { mapState, mapActions, mapMutations, mapGetters } from 'vuex'
+import AppButtons from './AppButtons.vue'
 export default {
+  components: {
+    AppButtons
+  },
   computed: {
     ...mapState({
       page: state => state.page.page,
@@ -86,7 +84,9 @@ export default {
     this.$eventHub.$on("database:initialized", () => {
       M.AutoInit();
       M.updateTextFields(); 
-      M.FloatingActionButton.init(document.querySelectorAll(".fixed-action-btn"), { direction: "right" });
+    });
+    this.$eventHub.$on("submit:page", ($event) => {
+      this.handleSubmitPage($event);
     });
     this.$nextTick(() => {
       M.AutoInit();
@@ -112,7 +112,7 @@ export default {
         let instance = M.FormSelect.init(elems);
       }).catch(err => {});
     },
-    clickSubmitPage(event) {
+    handleSubmitPage(event) {
       const $pouch = this.$pouch;
       const page = this.getActivePage;
       const database = this.getDatabase;
@@ -134,19 +134,6 @@ export default {
         this.$eventHub.$emit("toggle:screen", "screen-history");
         this.$eventHub.$emit("database:initialized", true);
       }).catch((err) => {});
-
-    },
-    clickDownloadImage() {
-      const page = this.getActivePage;
-      if (page && page.image) {
-        this.$eventHub.$emit("browser:tabs:create", page.image);
-      }
-    },
-    clickDownloadImages() {
-      const page = this.getActivePage;
-      if (page && page.images && page.images.length) {
-        page.images.map((item) => this.$eventHub.$emit("browser:tabs:create", item.src));
-      }
     }
   }
 };

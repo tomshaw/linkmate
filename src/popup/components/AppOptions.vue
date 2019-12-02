@@ -1,32 +1,30 @@
 <template>
   <div class="options">
+
     <div class="options__background screen-image" v-bind:class="{ filtered: filtered }" v-bind:style="{ backgroundImage: 'url(' + image + ')' }">
       <div class="options__background-overlay"></div>
     </div>
+
     <div class="options__content">
-
       <div class="options__content-logo">
-        <img src="/assets/images/logo.png">
-      </div>
-
-      <div class="options__content-buttons">
-        <a class="btn-floating btn-large teal" title="Close" @click="handleClose">
-          <i class="large material-icons">done</i>
-        </a>
-        <a class="btn-floating btn-large pink" title="Logout" @click="handleLogout" v-if="authEnabled">
-          <i class="large material-icons">lock</i>
-        </a>
-      </div>
-      
+        <img src="/assets/images/logo.svg">
+      </div>      
     </div>
+
+    <AppButtons buttonStyle="purple darken-3" buttonIcon="beenhere" toggleScreen="screen-featured" activeScreen="screen-options" :authEnabled="authEnabled"/>
+
   </div>
 </template>
 
 <script>
 import { mapState, mapActions } from 'vuex'
-import { getStorage, removeStorage } from '../../library/storage'
+import { getStorage } from '../../library/storage'
 import { STORAGE_DBNAME_DOCUMENTS } from '../../library/static/constants'
+import AppButtons from './AppButtons.vue'
 export default {
+  components: {
+    AppButtons
+  },
   data() {
     return {
       image: "/assets/images/background.png",
@@ -65,17 +63,7 @@ export default {
   methods: {
     ...mapActions({
       loadDocuments: 'document/LOAD_DOCUMENTS'
-    }),
-    handleLogout(event) {
-      removeStorage("session").then(resp => {
-        this.$nextTick(() => {
-          window.close();
-        });
-      });
-    },
-    handleClose(screen) {
-      window.close();
-    }
+    })
   }
 };
 </script>
@@ -112,18 +100,22 @@ export default {
     display: flex;
     flex-wrap: nowrap;
     justify-content: center;
-    align-items: flex-end;
+    align-items: center;
     position: relative;
-    height: 540px;
-    height: calc(540px - 100px);
+    height: calc(540px - 50px);
     width: 340px;
     overflow: hidden;
   }
-  &__content-buttons {
-    padding: 0 10px;
-    a + a {
-      margin-left: 20px;
-    }
+  &__content-logo img {
+    width: 200px;
+    margin-bottom: 10%;
+    transform: translateY(100%);
+    transition: transform 1s;
+    will-change: transform;
   }
+}
+
+[data-screen="screen-options"] .content .options .options__content-logo img {
+  transform: translateY(0);
 }
 </style>
