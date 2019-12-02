@@ -36,6 +36,14 @@ export default {
       this.toggleScreen(screen);
     });
 
+    this.$eventHub.$on("browser:tabs:create", (to) => {
+      this.getBackgroundPage().then((backgroundPage) => {
+        if (backgroundPage) {
+          backgroundPage.createNewTab(to);
+        }
+      }).catch((err) => {});
+    });
+
     this.$on('pouchdb-sync-change', (data) => {
       console.log('pouchdb-sync-change', data);
     });
@@ -78,18 +86,9 @@ export default {
       }
     });
 
-    this.$eventHub.$on("browser:tabs:create", (to) => {
-      this.getBackgroundPage().then((backgroundPage) => {
-        if (backgroundPage) {
-          backgroundPage.createNewTab(to);
-        }
-      }).catch((err) => {});
-    });
-
     this.getBackgroundPage().then((backgroundPage) => {
       if (backgroundPage) {
-        const activePage = backgroundPage.getActivePage();
-        this.setActivePage(activePage);
+        this.setActivePage(backgroundPage.getActivePage());
       }
     }).catch((err) => {});
 
@@ -120,9 +119,10 @@ export default {
       }
     },
     toggleScreen(screen) {
-      console.log('toggle-screen', screen);
       const wrapper = document.querySelector(".wrapper");
-      wrapper.setAttribute("data-screen", screen);
+      if (wrapper) {
+        wrapper.setAttribute("data-screen", screen);
+      }
     }
   }
 };

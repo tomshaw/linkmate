@@ -13,7 +13,7 @@
         <a class="btn-floating btn-large teal" title="Close" @click="handleClose">
           <i class="large material-icons">done</i>
         </a>
-        <a class="btn-floating btn-large pink" title="Logout" @click="handleLogout">
+        <a class="btn-floating btn-large pink" title="Logout" @click="handleLogout" v-if="authEnabled">
           <i class="large material-icons">lock</i>
         </a>
       </div>
@@ -23,14 +23,15 @@
 </template>
 
 <script>
-import { mapState, mapActions } from "vuex";
-import { removeStorage } from "../../library/storage";
-import { STORAGE_DBNAME_DOCUMENTS } from "../../library/static/constants";
+import { mapState, mapActions } from 'vuex'
+import { getStorage, removeStorage } from '../../library/storage'
+import { STORAGE_DBNAME_DOCUMENTS } from '../../library/static/constants'
 export default {
   data() {
     return {
       image: "/assets/images/background.png",
-      filtered: false
+      filtered: false,
+      authEnabled: false
     };
   },
   computed: {
@@ -40,6 +41,7 @@ export default {
   },
   mounted() {
     const $pouch = this.$pouch;
+
     this.$eventHub.$on("database:initialized", () => {
       const database = this.database.local ? this.database.local : STORAGE_DBNAME_DOCUMENTS;
       this.loadDocuments({ $pouch, database }).then((resp) => {
@@ -49,6 +51,16 @@ export default {
         }
       }).catch(err => {});
     });
+
+    getStorage(["options", "session"]).then(response => {
+      const options = (response.options) ? response.options : {};
+      if (options.general) {
+        if (options.general.auth_enabled) {
+          this.authEnabled = options.general.auth_enabled
+        }
+      }
+    });
+
   },
   methods: {
     ...mapActions({
