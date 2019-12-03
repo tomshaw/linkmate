@@ -5,8 +5,8 @@ export default class DefaultHandler extends PageContent {
   constructor() {
     super();
     this.minimums = {
-      width: 340,
-      height: 490
+      width: 200,
+      height: 200
     }
   }
 
@@ -119,7 +119,7 @@ export default class DefaultHandler extends PageContent {
         this.url = href ? href : false;
       }
 
-      // Begin append social share image to images stack only if the image is not already present.
+      // Begin append social share image to images stack if the image is not already present.
       // This is highly imperfect, many sites upload the same image multiple times for SEO reasons.
 
       const imageExists = this.images.some((el) => { return el.src === this.image });
@@ -133,7 +133,7 @@ export default class DefaultHandler extends PageContent {
           images: this.images,
           description: this.description,
           url: this.url
-        })
+        });
       }
 
       if (imageExists) {
@@ -144,9 +144,7 @@ export default class DefaultHandler extends PageContent {
             this.images.push({ src: resp.src, alt: this.title, width: resp.width, height: resp.height });
           }
           resolvePromise();
-        }).catch((err) => { 
-          reject(err);
-        });
+        }).catch((err) => { });
       }
 
     });

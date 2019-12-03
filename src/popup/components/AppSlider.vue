@@ -1,7 +1,7 @@
 <template>
   <div class="featured-slider">
     <div class="featured-slider__slides">
-      <div class="slide" data-section="0" data-duration="10" v-for="(item, i) in images" :key="i">
+      <div class="slide" data-duration="10" v-for="(item, i) in images" :key="i" :data-slide="i" :data-width="item.width" :data-height="item.height">
         <div class="slide__cover" v-bind:style="{ backgroundImage: 'url(' + item.src + ')' }"></div>
         <div class="slide__content">
           <div class="slide__inner">
