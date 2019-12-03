@@ -2,6 +2,10 @@ import PageContent from './page'
 
 export default class YouTubeHandler extends PageContent {
 
+  constructor() {
+    super();
+  }
+
   process(info) {
  
     return new Promise((resolve, reject) => {

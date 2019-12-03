@@ -50,7 +50,7 @@ export default {
       }).catch(err => {});
     });
 
-    getStorage(["options", "session"]).then(response => {
+    getStorage(["options", "session", "extension"]).then(response => {
       const options = (response.options) ? response.options : {};
       if (options.general) {
         if (options.general.auth_enabled) {

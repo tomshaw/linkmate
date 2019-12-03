@@ -2,6 +2,10 @@ import PageContent from './page'
 
 export default class DefaultHandler extends PageContent {
 
+  constructor() {
+    super();
+  }
+
   process(info) {
 
     return new Promise((resolve, reject) => {
@@ -60,39 +64,55 @@ export default class DefaultHandler extends PageContent {
       }
 
       if (!this.images) {
-        let images = document.getElementsByTagName('img');
+
+        const images = document.getElementsByTagName('img');
+
         if (images.length) {
+
           let data = [];
+          let compare = [];
           for (let i = 0, total = images.length; i < total; i++) {
-            let image = images[i];
+            const image = images[i];
+            const source = image.src;
+
+            //console.log('document-image-source', source);
+            
             const naturalHeight = image.naturalHeight;
             const naturalWidth = image.naturalWidth;
+
             if (naturalHeight >= 540 && naturalWidth >= 340) {
-              if (image.src && image.src.length) {
+              if (source && source.length) {
 
                 let alternateText = (image.alt && image.alt.length) ? image.alt : this.title;
 
-                let imageType = image.src.replace(/^.*\./, '');
-                if (imageType == 'svg') {
+                // Filter out images
+                if (!source.match(/(https?:\/\/.*\.(?:gif|jpg|jpeg|png|webp))/i)) {
                   continue;
                 }
 
-                // @todo 
-                let duplicate = data.map(item => item.src).indexOf(image.src);
-                console.log('duplicate', duplicate);
-                if (duplicate >= 0) {
+                // Remove duplicate items.
+                if (compare.includes(source)) {
                   continue;
                 }
 
-                data.push({ src: image.src, alt: alternateText, width: image.naturalWidth, height: image.naturalHeight })
+                compare.push(source);
+
+                data.push({ src: source, alt: alternateText, width: image.naturalWidth, height: image.naturalHeight });
+
               }
             }
           }
+          
+          compare.length = 0;
+
           this.images = data;
+
         } else {
-          this.images = []
+          this.images = [];
         }
       }
+
+      console.log('images', this.images);
 
       if (!this.url) {
         const href = window.location.href;

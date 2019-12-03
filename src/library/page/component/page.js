@@ -1,6 +1,8 @@
 
 export default class PageContent {
 
+  constructor() {}
+
   preloadImage(src) {
     return new Promise((resolve, reject) => {
       let image = new Image();
