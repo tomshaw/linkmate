@@ -108,8 +108,7 @@ export default {
         this.updateSelected({ $pouch, docId }).then((result) => {}).catch(err => {});
         this.$eventHub.$emit("database:initialized", true);
       }).then(() => {
-        let elems = document.getElementById('category');
-        let instance = M.FormSelect.init(elems);
+        M.FormSelect.init(document.getElementById('category'));
       }).catch(err => {});
     },
     handleSubmitPage(event) {
@@ -122,7 +121,7 @@ export default {
 
       let doc = { ...page, database: database.id, category, expires };
 
-      doc.created = now; // only updated
+      doc.created = now; // @todo only updated
       doc.updated = now;
 
       if (doc.action) delete doc.action;

@@ -25,9 +25,10 @@ const mutations = {
 };
 
 const actions = {
-  LOAD_DOCUMENT({ commit }, { $pouch, database, docId }) { // NEW
+  LOAD_DOCUMENT({ commit }, { $pouch, database, docId }) {
     return new Promise((resolve, reject) => {
       $pouch.get(docId, {}, database).then((doc) => {
+        commit('expires/SET_EXPIRATION', doc.expires, { root: true });
         commit('SET_CATEGORY', doc.category);
         commit('SET_DOCUMENT', doc);
         resolve(doc);

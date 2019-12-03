@@ -89,8 +89,8 @@ export default {
       if (search && search.length && search[0].doc.local) {
         const database = search[0].doc.local;
         this.loadDocument({ $pouch, database, docId: doc._id }).then((resp) => {
-          let elems = document.getElementById('category');
-          let instance = M.FormSelect.init(elems);
+          M.FormSelect.init(document.getElementById('category'));
+          M.FormSelect.init(document.getElementById('expires'));
         }).then(() => {
           M.updateTextFields();
         }).then(() => {
