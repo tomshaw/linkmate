@@ -4,6 +4,10 @@ export default class DefaultHandler extends PageContent {
 
   constructor() {
     super();
+    this.minimums = {
+      width: 340,
+      height: 490
+    }
   }
 
   process(info) {
@@ -72,15 +76,14 @@ export default class DefaultHandler extends PageContent {
           let data = [];
           let compare = [];
           for (let i = 0, total = images.length; i < total; i++) {
+
             const image = images[i];
             const source = image.src;
 
-            //console.log('document-image-source', source);
-            
             const naturalHeight = image.naturalHeight;
             const naturalWidth = image.naturalWidth;
 
-            if (naturalHeight >= 540 && naturalWidth >= 340) {
+            if (naturalHeight >= this.minimums.height && naturalWidth >= this.minimums.width) {
               if (source && source.length) {
 
                 let alternateText = (image.alt && image.alt.length) ? image.alt : this.title;
@@ -98,11 +101,10 @@ export default class DefaultHandler extends PageContent {
                 compare.push(source);
 
                 data.push({ src: source, alt: alternateText, width: image.naturalWidth, height: image.naturalHeight });
-
               }
             }
           }
-          
+
           compare.length = 0;
 
           this.images = data;
@@ -112,29 +114,39 @@ export default class DefaultHandler extends PageContent {
         }
       }
 
-      console.log('images', this.images);
-
       if (!this.url) {
         const href = window.location.href;
         this.url = href ? href : false;
       }
 
-      if (this.image) {
+      // Begin append social share image to images stack only if the image is not already present.
+      // This is highly imperfect, many sites upload the same image multiple times for SEO reasons.
+
+      const imageExists = this.images.some((el) => { return el.src === this.image });
+
+      const resolvePromise = () => {
+        resolve({
+          ...info.location,
+          match: info.location.hostname,
+          title: this.title,
+          image: this.image,
+          images: this.images,
+          description: this.description,
+          url: this.url
+        })
+      }
+
+      if (imageExists) {
+        resolvePromise();
+      } else {
         this.preloadImage(this.image).then((resp) => {
-
-          this.images.push({ src: resp.src, alt: this.title, width: resp.width, height: resp.height });
-
-          resolve({
-            ...info.location,
-            match: info.location.hostname,
-            title: this.title,
-            image: this.image,
-            images: this.images,
-            description: this.description,
-            url: this.url
-          })
-
-        }).catch((err) => console.log('load-image-error', err));
+          if (resp.height >= this.minimums.height && resp.width >= this.minimums.width) {
+            this.images.push({ src: resp.src, alt: this.title, width: resp.width, height: resp.height });
+          }
+          resolvePromise();
+        }).catch((err) => { 
+          reject(err);
+        });
       }
 
     });
