@@ -21,7 +21,7 @@
           <i class="material-icons">play_circle_filled</i>
         </a>
       </li>
-      <li v-if="activeScreen !== 'screen-article'">
+      <li>
         <a class="btn-floating blue" title="Search Documents" @click="handleToggleSearch">
           <i class="material-icons">search</i>
         </a>

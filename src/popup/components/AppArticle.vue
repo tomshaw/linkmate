@@ -188,7 +188,7 @@ export default {
       const category = this.getCategory;
       const expires = this.getExpiration;
 
-      const searchParams = { title: page.title, database, category, expires };
+      const searchParams = { title: page.title, description: page.description, database, category, expires };
 
       let options = {
         selector: {
@@ -203,12 +203,31 @@ export default {
           ...options,
           selector: {
             ...options.selector,
-            title: { $regex: RegExp(searchParams.title, 'i') },
-            $and: [
-              { description: { $regex: RegExp(searchParams.title, 'i') } },
-            ]
+            title: { $regex: RegExp(searchParams.title, 'i') }
           }
         };
+      }
+
+      if (searchParams.description) {
+        if (searchParams.title) {
+          options = {
+            ...options,
+            selector: {
+              ...options.selector,
+              $and: [
+                { description: { $regex: RegExp(searchParams.title, 'i') } },
+              ]
+            }
+          };
+        } else {
+          options = {
+            ...options,
+            selector: {
+              ...options.selector,
+              description: { $regex: RegExp(searchParams.description, 'i') }
+            }
+          };
+        }
       }
 
       if (searchParams.category && searchParams.category.length) {
@@ -245,11 +264,8 @@ export default {
         index: {
           fields: ["title", "description", "category", "expires", "created"]
         }
-      }, database).then((result) => {
-        console.log(`create-index-${database}-result`, result);
-      }).catch((err) => {
-        console.log(`create-index-${database}-err`, err);
-      });
+      }, database).then((result) => console.log(`create-index-${database}-result`, result))
+      .catch((err) => console.log(`create-index-${database}-err`, err));
     }
   }
 };

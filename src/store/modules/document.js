@@ -46,12 +46,10 @@ const actions = {
         let rows = [];
         docs.forEach(item => {
           let created = new Date(item.created);
-          //item.date = created.toLocaleDateString("en-US");
           item.date = created.toLocaleDateString("en-US", dateOptions);
           item.newItem = (dateObject.toDateString() === created.toDateString());
           rows.push(item);
         });
-        console.log('SEARCH_DOCUMENTS', rows);
         context.commit('SET_DOCUMENTS', sortByCreation(rows));
         resolve(rows);
       }).catch(err => {
