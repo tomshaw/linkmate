@@ -41,7 +41,7 @@
 </template>
 
 <script>
-import { mapMutations, mapGetters } from "vuex";
+import { mapGetters } from "vuex";
 import { getStorage, removeStorage } from "../../library/storage";
 import SpeechSynthesizer from "../../library/synthesizer";
 export default {
