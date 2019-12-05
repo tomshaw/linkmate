@@ -32,7 +32,10 @@ export default {
       this.pushDatabases({ $pouch });
     });
 
-    this.$eventHub.$on("toggle:screen", (screen) => {
+    this.$eventHub.$on("toggle:screen", (screen, options = {}) => {
+      if (options.event) {
+        this.$eventHub.$emit(options.event, options);
+      }
       this.toggleScreen(screen);
     });
 

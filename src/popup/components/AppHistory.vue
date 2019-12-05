@@ -49,7 +49,7 @@ export default {
   },
   filters: {
     processCats: function(v) {
-      if (v.length) {
+      if (v && v.length) {
         return v.join(", ");
       }
     },

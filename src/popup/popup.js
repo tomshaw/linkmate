@@ -8,6 +8,7 @@ import PouchVue from 'pouch-vue'
 
 import lf from 'pouchdb-find'
 import plf from 'pouchdb-live-find'
+//import pqs from 'pouchdb-quick-search'
 import auth from 'pouchdb-authentication'
 //import debug from 'pouchdb-debug'
 
@@ -22,6 +23,7 @@ Vue.prototype.$eventHub = new Vue()
 
 PouchDB.plugin(lf)
 PouchDB.plugin(plf)
+//PouchDB.plugin(pqs)
 PouchDB.plugin(auth)
 //PouchDB.plugin(debug)
 

@@ -33,6 +33,16 @@ Once the application is loaded head on over to the options page and start by fil
 + [PouchVue](https://github.com/MDSLKTR/pouch-vue) - Pouchdb bindings for Vue.js
 + [Materialize](https://github.com/Dogfalo/materialize) - Materialize, a CSS Framework based on Material Design
 
+## Further Reading
+
++ [PouchDB Find](https://github.com/nolanlawson/pouchdb-find) - Provides a simple, MongoDB-inspired query language that accomplishes the same thing as the map/reduce API, but with far less code. Eventually this will replace PouchDB's map/reduce API entirely. You'll still be able to use map/reduce, but it will be distributed as a separate plugin.
++ [PouchDB LiveFind](https://pouchdb.com/api.html) - Live PouchDB queries that update automatically as changes come in!
++ [PouchDB Authentication](https://github.com/pouchdb-community/pouchdb-authentication) - Easy user authentication for PouchDB/CouchDB.
++ [Relational Pouch](https://github.com/pouchdb-community/relational-pouch) - Relational Pouch is a plugin for PouchDB that allows you to interact with PouchDB/CouchDB like a relational data store, with types and relations.
++ [Mango Queries](https://pouchdb.com/guides/mango-queries.html) - Mango queries, also known as pouchdb-find or the find() API, are a structured query API that allows you to build secondary indexes beyond the built-in allDocs() and changes() indexes.
++ [Map/Reduce Queries](https://pouchdb.com/api.html) - Map/reduce queries, also known as the query() API, are one of the most powerful features in PouchDB.
++ [PouchDB Quick Search](https://github.com/pouchdb-community/pouchdb-quick-search) - Full-text search engine on top of PouchDB
+
 ## Quick Setup
 
 ```bash
