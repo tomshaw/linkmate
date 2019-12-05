@@ -11,7 +11,7 @@
       </a>
     </template>
     <ul>
-      <li v-if="activeScreen === 'screen-featured'">
+      <li>
         <a class="btn-floating teal" title="Download Images" @click="handleDownloadImages($event)">
           <i class="material-icons">camera_roll</i>
         </a>
