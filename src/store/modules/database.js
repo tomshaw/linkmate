@@ -71,14 +71,14 @@ const actions = {
   },
   PUSH_DATABASE({}, { $pouch, local, remote, options }) {
     return new Promise((resolve, reject) => {
-      $pouch.push(local, remote, options).then((resp) => {
+      $pouch.push(local, remote).then((resp) => {
         resolve(resp);
       }).catch(err => {
         reject(err);
       });
     });
   },
-  PULL_DATABASE({}, { $pouch, local, remote }) {
+  PULL_DATABASE({}, { $pouch, local, remote, options }) {
     return new Promise((resolve, reject) => {
       $pouch.pull(local, remote).then((resp) => {
         resolve(resp);
@@ -165,6 +165,7 @@ const actions = {
       });
     });
   },
+  // Requires admin access.
   DATABASE_INFORMATION({}, { $pouch, database }) {
     return new Promise((resolve, reject) => {
       $pouch.info(database).then((result) => {

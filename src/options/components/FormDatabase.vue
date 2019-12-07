@@ -5,7 +5,7 @@
       <div class="row">
         <div class="col s8">
           <h2>Database Management</h2>
-          <p>Either a remote or local database name is required. Passwords are never stored and are only used for validation.</p>
+          <p>Remote databases require either admin credentials or explicitly granted user or group permissions to access the specified database.</p>
         </div>
       </div>
 
@@ -213,7 +213,6 @@ export default {
     },
     updateVerifiedStatus(doc) {
       const $pouch = this.$pouch;
-      this.closeModal();
       this.saveDatabase({ $pouch, doc }).then((resp) => {
         this.loadDatabases({ $pouch }).then((item) => {});
       }).catch((err) => {});

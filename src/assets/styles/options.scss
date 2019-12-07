@@ -73,6 +73,15 @@ a:active {
   display: none;
 }
 
+.close {
+  font-size: 1.5rem;
+  font-weight: 700;
+  line-height: 1;
+  color: #000;
+  text-shadow: 0 1px 0 #fff;
+  opacity: .5;
+}
+
 .options {
   width: 95vw;
   min-height: 100vh;
@@ -87,7 +96,6 @@ a:active {
 }
 
 .form-body {
-  //background-color: #fff;
   padding: 0 20px 30px;
   h2 {
     color: $formColor;

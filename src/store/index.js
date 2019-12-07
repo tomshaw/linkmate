@@ -5,7 +5,8 @@ import Vuex from 'vuex'
 import page from './modules/page'
 import document from './modules/document'
 import database from './modules/database'
-import expires from './modules/expiration'
+import expires from './modules/expires'
+import message from './modules/message'
 import session from './modules/session'
 
 import languages from '../library/static/languages'
@@ -23,6 +24,7 @@ export default new Vuex.Store({
     document,
     database,
     expires,
+    message,
     session
   },
   strict: debug,

@@ -3,7 +3,7 @@ const OptionsTabs = [{
   component: 'FormGeneral',
   tabRef: '#tab1',
   divId: 'tab1',
-  checked: false,
+  checked: true,
   enabled: true
 }, {
   name: 'Databases',
@@ -24,7 +24,7 @@ const OptionsTabs = [{
   component: 'FormReplication',
   tabRef: '#tab4',
   divId: 'tab4',
-  checked: true,
+  checked: false,
   enabled: true
 }, {
   name: 'Theme',

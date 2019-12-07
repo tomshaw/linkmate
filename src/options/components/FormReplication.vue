@@ -1,11 +1,14 @@
 <template>
   <form ref="form">
+
     <div class="form-body">
+
+      <FormMessage />
       
-      <div class="row">
+      <div class="row" v-bind:class="{ hidden: getMessageEnabled }">
         <div class="col s8">
-          <h2>Database Management</h2>
-          <p>Either a remote or local database name is required. Passwords are never stored and are only used for validation.</p>
+          <h2>Database Replication</h2>
+          <p>Remote databases require either admin credentials or explicitly granted user or group permissions to access the specified database.</p>
         </div>
       </div>
 
@@ -32,9 +35,9 @@
                   <td>{{ item.doc.local }}</td>
                   <td>{{ item.doc.remote }}</td>
                   <td>
-                    <button type="button" class="btn btn-small waves-effect teal" @click="handlePushDatabase(item.doc)">Push</button>
-                    <button type="button" class="btn btn-small waves-effect teal" @click="handlePullDatabase(item.doc)">Pull</button>
-                    <button type="button" class="btn btn-small waves-effect teal" @click="handleSyncDatabase(item.doc)">Sync</button>
+                    <button type="button" class="btn btn-small waves-effect teal" @click="handlePushDatabase($event, item.doc)">Push</button>
+                    <button type="button" class="btn btn-small waves-effect teal" @click="handlePullDatabase($event, item.doc)">Pull</button>
+                    <button type="button" class="btn btn-small waves-effect teal" @click="handleSyncDatabase($event, item.doc)">Sync</button>
                   </td>
                 </tr>
               </tbody>
@@ -49,9 +52,13 @@
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex'
+import { mapState, mapGetters, mapActions } from "vuex";
+import FormMessage from "@/options/components/FormMessage";
 export default {
   name: "FormReplication",
+  components: {
+    FormMessage
+  },
   data() {
     return {
       items: []
@@ -60,6 +67,9 @@ export default {
   computed: {
     ...mapState({
       databases: state => state.database.databases,
+    }),
+    ...mapGetters({
+      getMessageEnabled: 'message/getMessageEnabled'
     })
   },
   mounted() {
@@ -72,6 +82,7 @@ export default {
   },
   methods: {
     ...mapActions({
+      saveDatabase: 'database/SAVE_DATABASE',
       loadDatabases: 'database/LOAD_DATABASES',
       dbInformation: 'database/DATABASE_INFORMATION',
       pushDatabase: 'database/PUSH_DATABASE',
@@ -85,60 +96,79 @@ export default {
       const username = item.username;
       const password = item.password;
 
-      console.log('item', item);
-
       event.preventDefault();
 
-      this.dbInformation({ $pouch, database }).then((result) => {
-        console.log('database-info-result', result);
-      }).catch((err) => {
-        console.log('database-info-error', err);
-      });
-
-      console.log('database::', database);
-
       this.authConnect({ $pouch, username, password, database }).then((result) => {
-        console.log('load-session-result', result);
+        this.displayMessage('success', 'Authorization Completed', `You have sucessfully connected to remote database: ${database}.`);
+        this.saveDatabase({ $pouch, doc: { ...item, verified: true } });
       }).catch((err) => {
-        console.log('load-session-error', err);
+        this.displayMessage('warning', 'Authorization Error', err.message);
+        this.saveDatabase({ $pouch, doc: { ...item, verified: false } });
       });
-
     },
-    handlePushDatabase(item) {
+    handlePushDatabase(event, item) {
+      const $pouch = this.$pouch;
+      const local = item.local;
+      const remote = item.remote;
+      const options = {}; // live: true, retry: true 
+
+      const data = { $pouch, local, remote, options };
+      console.log('push-database-options', data);
+
+      this.pushDatabase(data).then((result) => {
+        this.displayMessage('success', 'Successfully Completed', `You have sucessfully pushed database: ${local} to ${remote}.`);
+      }).then(() => {
+        this.loadDatabases({ $pouch }).catch((err) => {});
+      }).catch((err) => {
+        this.displayMessage('warning', 'Push Database Error', err.message);
+      });
+    },
+    handlePullDatabase(event, item) {
+      const $pouch = this.$pouch;
+      const local = item.local;
+      const remote = item.remote;
+      const options = {}; // live: true, retry: true
+
+      const data = { $pouch, local, remote, options };
+      console.log('pull-database-options', data);
+
+      this.pullDatabase(data).then((result) => {
+        this.displayMessage('success', 'Successfully Completed', `You have sucessfully pulled database: ${remote} to ${local}.`);
+      }).then(() => {
+        this.loadDatabases({ $pouch }).catch((err) => {});
+      }).catch((err) => {
+        this.displayMessage('warning', 'Pull Database Error', err.message);
+      });
+    },
+    handleSyncDatabase(event, item) {
       const $pouch = this.$pouch;
       const local = item.local;
       const remote = item.remote;
       const options = { live: true, retry: true };
 
-      this.pushDatabase({ $pouch, local, remote, options }).then((result) => {
-        console.log('push-database-result', result);
+      const data = { $pouch, local, remote, options };
+      console.log('sync-database-options', data);
+
+      this.syncDatabase(data).then((result) => {
+        console.log('sync-database-result::', result);
+        this.displayMessage('success', 'Successfully Completed', `You have sucessfully synced databases: ${remote} and ${local}.`);
+      }).then(() => {
+        this.loadDatabases({ $pouch }).catch((err) => {});
       }).catch((err) => {
-        console.log('push-database-error', err);
+        this.displayMessage('warning', 'Sync Database Error', err.message);
       });
     },
-    handlePullDatabase(item) {
-      const $pouch = this.$pouch;
-      const local = item.local;
-      const remote = item.remote;
-      const options = { live: true, retry: true };
-
-      this.pullDatabase({ $pouch, local, remote, options }).then((result) => {
-        console.log('pull-database-result', result);
-      }).catch((err) => {
-        console.log('pull-database-error', err);
-      });
-    },
-    handleSyncDatabase(item) {
-      const $pouch = this.$pouch;
-      const local = item.local;
-      const remote = item.remote;
-      const options = { live: true, retry: true };
-
-      this.syncDatabase({ $pouch, local, remote, options }).then((result) => {
-        console.log('sync-database-result', result);
-      }).catch((err) => {
-        console.log('sync-database-error', err);
-      });
+    displayMessage(type, header, paragraph) {
+      const options = {
+        type, // primary, success, warning, codeblock
+        enabled: true,
+        timeout: false,
+        content: {
+          header,
+          paragraph
+        }
+      }
+      this.$eventHub.$emit("display:message", options);
     }
   }
 };
