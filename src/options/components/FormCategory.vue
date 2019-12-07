@@ -119,9 +119,7 @@ export default {
   },
   watch: {
     catname: function(newVal, oldVal) {
-      if (this.update) {
-        console.log("New value: "+ newVal + ", Old value: " + oldVal);
-      }
+      if (this.update) {}
     }
   },
   mounted() {

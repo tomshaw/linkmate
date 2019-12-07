@@ -125,7 +125,8 @@ export default {
     });
 
     this.$eventHub.$on("search:mode", $event => {
-      this.page = {};
+      const page = this.page;
+      this.page = { ...page, title: "", description: "" };
     });
 
     this.$eventHub.$on("submit:page", $event => {
@@ -155,6 +156,7 @@ export default {
       }).then(() => {
         M.FormSelect.init(document.getElementById("category"));
       }).catch(err => {});
+      
     },
     handleSubmitPage(event) {
       const $pouch = this.$pouch;
@@ -180,6 +182,7 @@ export default {
         this.$eventHub.$emit("toggle:screen", "screen-history");
         this.$eventHub.$emit("database:initialized", true);
       }).catch((err) => {});
+
     },
     handleSubmitSearch(event) {
       const $pouch = this.$pouch;
@@ -193,6 +196,8 @@ export default {
       let options = {
         selector: {
           title: { $exists: true },
+          description: { $description: true },
+          category: { $category: true },
           expires: { $exists: true }
         },
         limit: 100,
@@ -250,22 +255,12 @@ export default {
         };
       }
 
-      console.log("submit-search-params", searchParams);
-      console.log('submit-search-options', options);
-
       this.searchDocuments({ $pouch, options, database }).then((result) => {
         if (result.length) {
           this.$eventHub.$emit("toggle:screen", "screen-history");
         }
       });
-    },
-    createIndexes() {
-      this.$pouch.createIndex({
-        index: {
-          fields: ["title", "description", "category", "expires", "created"]
-        }
-      }, database).then((result) => console.log(`create-index-${database}-result`, result))
-      .catch((err) => console.log(`create-index-${database}-err`, err));
+
     }
   }
 };

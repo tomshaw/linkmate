@@ -13,14 +13,7 @@
 
         <div class="row">
           <div class="input-field col s6">
-            <input
-              type="text"
-              class="validate"
-              name="title"
-              id="title"
-              v-model="database.title"
-              placeholder="Database title"
-            />
+            <input type="text" class="validate" name="title" id="title" v-model="database.title" placeholder="Database title" />
             <label for="local">Database title</label>
           </div>
           <div class="input-field col s6"></div>
@@ -28,79 +21,40 @@
 
         <div class="row">
           <div class="input-field col s6">
-            <input
-              type="text"
-              class="validate"
-              name="local"
-              id="local"
-              v-model="database.local"
-              placeholder="Local db name"
-            />
+            <input type="text" class="validate" name="local" id="local" v-model="database.local" placeholder="Local db name" />
             <label for="local">Local db name</label>
           </div>
           <div class="input-field col s6">
-            <input
-              type="text"
-              class="validate"
-              name="remote"
-              id="remote"
-              v-model="database.remote"
-              placeholder="http://localhost:5984/dbname"
-            />
+            <input type="text" class="validate" name="remote" id="remote" v-model="database.remote" placeholder="http://localhost:5984/dbname" />
             <label for="remote">Remote db name</label>
           </div>
         </div>
 
         <div class="row">
           <div class="input-field col s6">
-            <input
-              type="text"
-              class="validate"
-              name="username"
-              id="username"
-              v-model="database.username"
-              placeholder="Database username"
-            />
+            <input type="text" class="validate" name="username" id="username" v-model="database.username" placeholder="Database username" />
             <label for="username">Database username</label>
           </div>
           <div class="input-field col s6">
-            <input
-              type="password"
-              class="validate"
-              name="password"
-              id="password"
-              v-model="database.password"
-              placeholder="Database password"
-            />
+            <input type="password" class="validate" name="password" id="password" v-model="database.password" placeholder="Database password" />
             <label for="password">Database password</label>
           </div>
         </div>
 
         <div class="row">
           <div class="input-field col s6">
-            <input
-              type="text"
-              class="validate"
-              name="description"
-              id="description"
-              v-model="database.description"
-              placeholder="Database description"
-            />
+            <input type="text" class="validate" name="description" id="description" v-model="database.description" placeholder="Database description" />
             <label for="description">Database description</label>
           </div>
           <div class="input-field col s6"></div>
         </div>
+
       </div>
 
       <div class="row" :class="{ hidden: showForm }">
         <div class="col s12">
           <div class="table-responsive">
             <table class="table table-bordered table-striped">
-              <colgroup>
-                <col class="col-xs-1" />
-                <col class="col-xs-5" />
-                <col class="col-xs-2" />
-              </colgroup>
               <thead>
                 <tr>
                   <th>Status</th>
@@ -118,7 +72,6 @@
                   </th>
                   <td>{{ item.doc.description }}</td>
                   <td>
-                    <button type="button" :data-target="`modal${i}`" class="btn btn-small waves-effect waves-light modal-trigger" @click="validateItem(item, i)" :data-verified="item.doc.verified" v-bind:class="[item.doc.verified == true ? 'indigo darken-3' : 'red darken-1']" v-bind:disabled="item.doc.remote === ''" v-html="item.doc.verified == true ? 'Verified' : 'Validate'" />
                     <button type="button" class="btn btn-small waves-effect waves-light teal accent-4" @click="updateItem(item)">Update</button>
                     <button type="button" class="btn btn-small waves-effect waves-light red darken-1" @click="deleteItem(item.doc)">Delete</button>
                   </td>
@@ -135,33 +88,21 @@
       <div class="form-actions__inner">
 
         <div class="form-actions__inner-button" v-if="showForm">
-          <button class="btn waves-effect waves-light" type="button" name="action" @click="submit($event)">Submit</button>
+          <button type="button" class="btn waves-effect teal" name="action" @click="submit($event)">Submit</button>
         </div>
 
         <div class="form-actions__inner-button" v-if="showForm">
-          <button class="btn waves-effect red" type="reset" name="action">Reset</button>
+          <button type="reset" class="btn waves-effect teal" name="cancel" @click="showForm = !showForm">Cancel</button>
         </div>
 
-        <div class="form-actions__inner-button" v-if="showForm">
-          <button class="btn waves-effect green" type="reset" name="cancel" @click="showForm = !showForm">Cancel</button>
+        <div class="form-actions__inner-button" v-if="showForm && database.remote">
+          <button type="button" class="btn waves-effect indigo" name="validate" @click="validateItem(database)">Validate</button>
         </div>
 
         <div class="form-actions__inner-button" v-if="!showForm">
-          <button class="btn waves-effect blue" type="button" name="action" @click="showForm = !showForm">Create Database</button>
+          <button type="button" class="btn waves-effect teal" name="action" @click="showForm = !showForm">Create Database</button>
         </div>
 
-      </div>
-    </div>
-
-
-    <div class="modal" v-for="(item, i) in databases" :key="i" :id="`modal${i}`" style="width: 600px;">
-      <div class="modal-content">
-        <h4 v-html="item.doc.title" />
-        <p v-html="item.doc.title" />
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-small waves-effect waves-light teal accent-4" @click="validateItem(item.doc)">Validate</button>
-        <button type="button" class="btn btn-small waves-effect waves-light red darken-1 modal-close">Close</button>
       </div>
     </div>
 
@@ -170,10 +111,8 @@
 
 <script>
 import { mapState, mapActions, mapMutations } from 'vuex'
-import { parseRemote } from '../../library/utils'
-import { setStorage, getStorage } from '../../library/storage'
-import { databaseSchema, defaultDatabases } from '../../library/static/databases'
-import { STORAGE_DBNAME_DATABASES } from '../../library/static/constants'
+import { parseRemote } from '@/library/utils'
+import { databaseSchema } from '../../library/static/databases'
 export default {
   name: "FormDatabase",
   data() {
@@ -187,20 +126,9 @@ export default {
       databases: state => state.database.databases,
     })
   },
-  filters: {
-    upperFirst: function(v) {
-      return v[0].toUpperCase() + v.substr(1);
-    },
-    lowerCaseString: function(v) {
-      return v.toLowerCase();
-    }
-  },
   mounted() {
     const $pouch = this.$pouch;
-    this.loadDatabases({ $pouch }).then((resp) => {
-      let elems = document.querySelectorAll('.modal');
-      this.instances = M.Modal.init(elems, {});
-    });
+    this.loadDatabases({ $pouch }).then((resp) => {});
     this.setDatabase(databaseSchema);
   },
   methods: {
@@ -210,7 +138,9 @@ export default {
       saveDatabase: 'database/SAVE_DATABASE',
       deleteDatabase: 'database/DELETE_DATABASE',
       updateSelected: 'database/UPDATE_SELECTED',
-      createRemoteDatabase: 'database/CREATE_REMOTE_DATABASE'
+      databaseInformation: 'database/DATABASE_INFORMATION',
+      createRemoteDatabase: 'database/CREATE_REMOTE_DATABASE',
+      createIndexes: 'database/CREATE_INDEXES'
     }),
     ...mapMutations({
       setDatabase: 'database/SET_DATABASE',
@@ -224,13 +154,32 @@ export default {
           this.showForm = false;
           this.setDatabase(databaseSchema);
         });
+      }).then(() => {
+        const fields = ["title", "description", "category", "expires", "created"];
+        const database = doc.local;
+        this.createIndexes({ $pouch, fields, database }).then((result) => {
+          console.log('create-indexes-result', result);
+        }).catch((err) => {});
       }).catch((err) => {});
     },
     updateItem(item) {
       const $pouch = this.$pouch;
-      this.loadDatabase({ $pouch, docId: item.id }).then((resp) => {
+      const database = item.local;
+      
+      this.loadDatabase({ $pouch, docId: item.id }).then((result) => {
+        console.log('load-database-response', result.local);
         this.showForm = true;
       });
+
+      this.databaseInformation({ $pouch, database }).then((result) => {
+        console.log('database-information', result);
+      });
+
+      const fields = ["title", "description", "category", "expires", "created"];
+      this.createIndexes({ $pouch, fields, database }).then((result) => {
+        console.log('create-indexes-result', result);
+      }).catch((err) => {});
+
     },
     deleteItem(doc, index) {
       const $pouch = this.$pouch;
@@ -268,14 +217,6 @@ export default {
       this.saveDatabase({ $pouch, doc }).then((resp) => {
         this.loadDatabases({ $pouch }).then((item) => {});
       }).catch((err) => {});
-    },
-    closeModal() {
-      const instances = this.instances;
-      instances.map((item, i) => {
-        if (item.isOpen) {
-          instances[i].close();
-        }
-      });
     }
   }
 };

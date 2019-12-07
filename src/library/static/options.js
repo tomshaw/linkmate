@@ -17,41 +17,34 @@ const OptionsTabs = [{
   component: 'FormCategory',
   tabRef: '#tab3',
   divId: 'tab3',
+  checked: false,
+  enabled: true
+}, {
+  name: 'Replication',
+  component: 'FormReplication',
+  tabRef: '#tab4',
+  divId: 'tab4',
   checked: true,
   enabled: true
 }, {
   name: 'Theme',
   component: 'FormTheme',
-  tabRef: '#tab4',
-  divId: 'tab4',
-  checked: false,
-  enabled: true
-}, {
-  name: 'Synthesizer',
-  component: 'FormSynthesizer',
   tabRef: '#tab5',
   divId: 'tab5',
   checked: false,
   enabled: true
 }, {
-  name: 'Privacy Policy',
-  component: 'FormPrivacy',
+  name: 'Synthesizer',
+  component: 'FormSynthesizer',
   tabRef: '#tab6',
   divId: 'tab6',
-  checked: false,
-  enabled: false
-}, {
-  name: 'Contact Us',
-  component: 'FormContact',
-  tabRef: '#tab7',
-  divId: 'tab7',
   checked: false,
   enabled: true
 }, {
   name: 'About',
   component: 'FormAbout',
-  tabRef: '#tab8',
-  divId: 'tab8',
+  tabRef: '#tab7',
+  divId: 'tab7',
   checked: false,
   enabled: true
 }]

@@ -11,7 +11,9 @@ const { version } = require('./package.json');
 
 const secretsPath = path.join(__dirname, ("./config/" + env.NODE_ENV + ".js"));
 
-let alias = {};
+let alias = {
+  '@': path.resolve(__dirname, 'src')
+};
 if (fileSystem.existsSync(secretsPath)) {
   alias["AppConfig"] = secretsPath;
 }

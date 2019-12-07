@@ -2,7 +2,7 @@ import PouchDB from 'pouchdb'
 
 import { defaultDatabases } from '../../library/static/databases'
 import { STORAGE_DBNAME_DATABASES } from '../../library/static/constants'
-import { buildConnectionString } from '../../library/utils'
+import { buildConnectionString, sortByDocumentTitle } from '../../library/utils'
 
 const state = () => ({
   catname: "", // new db name
@@ -44,6 +44,19 @@ const mutations = {
 };
 
 const actions = {
+  CREATE_INDEXES({}, { $pouch, fields, database }) {
+    return new Promise((resolve, reject) => {
+      $pouch.createIndex({
+        index: {
+          fields: fields
+        }
+      }, database).then((result) => {
+        resolve(result);
+      }).catch((err) => {
+        reject(err);
+      });
+    });
+  },
   CREATE_REMOTE_DATABASE(context, { $pouch, data }) {
     return new Promise((resolve, reject) => {
       const db = new PouchDB(data.remote, { // data.remote = `http://${data.username}:${data.password}@localhost:5984/${category}`;
@@ -52,7 +65,34 @@ const actions = {
       db.info((resp) => {
         resolve(resp);
       }).catch((err) => {
-        reject(err)
+        reject(err);
+      });
+    });
+  },
+  PUSH_DATABASE({}, { $pouch, local, remote, options }) {
+    return new Promise((resolve, reject) => {
+      $pouch.push(local, remote, options).then((resp) => {
+        resolve(resp);
+      }).catch(err => {
+        reject(err);
+      });
+    });
+  },
+  PULL_DATABASE({}, { $pouch, local, remote }) {
+    return new Promise((resolve, reject) => {
+      $pouch.pull(local, remote).then((resp) => {
+        resolve(resp);
+      }).catch(err => {
+        reject(err);
+      });
+    });
+  },
+  SYNC_DATABASE({}, { $pouch, local, remote, options }) {
+    return new Promise((resolve, reject) => { // options { live: true, retry: true }
+      $pouch.sync(local, remote, options).then((resp) => {
+        resolve(resp);
+      }).catch(err => {
+        reject(err);
       });
     });
   },
@@ -116,10 +156,19 @@ const actions = {
       });
     });
   },
-  FIND_DATABASES({}, { $pouch, options }) {
-    return new Promise((resolve, reject) => { // { selector: { selected: true }}
-      $pouch.find(options, STORAGE_DBNAME_DATABASES).then((docs) => {
-        resolve(docs);
+  CONNECT_REMOTE_DATABASE({}, { $pouch, username, password, database }) {
+    return new Promise((resolve, reject) => {
+      $pouch.connect(username, password, database).then((result) => {
+        resolve(result);
+      }).catch((err)=> {
+        reject(err);
+      });
+    });
+  },
+  DATABASE_INFORMATION({}, { $pouch, database }) {
+    return new Promise((resolve, reject) => {
+      $pouch.info(database).then((result) => {
+        resolve(result);
       }).catch((err)=> {
         reject(err);
       });
@@ -140,7 +189,7 @@ const actions = {
     return new Promise((resolve, reject) => {
       $pouch.allDocs({ include_docs: true, attachments: true, descending: true }, STORAGE_DBNAME_DATABASES).then((resp) => {
         let rows = (resp.rows && resp.rows.length) ? resp.rows : [];
-        context.commit('SET_DATABASES', rows)
+        context.commit('SET_DATABASES', sortByDocumentTitle(rows))
         resolve(rows)
       }).catch(err => {
         reject(err)

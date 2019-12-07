@@ -91,7 +91,6 @@ export default {
 
     this.getBackgroundPage().then((backgroundPage) => {
       if (backgroundPage) {
-        console.log('backgroundPage.getActivePage()', backgroundPage.getActivePage());
         this.setActivePage(backgroundPage.getActivePage());
       }
     }).catch((err) => {});

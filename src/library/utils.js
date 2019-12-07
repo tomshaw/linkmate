@@ -60,7 +60,7 @@ export function sortArray(dataArray) {
   });
 }
 
-export function sortCategories(dataArray) {
+export function sortByDocumentTitle(dataArray) {
   return dataArray.sort((a, b) => {
     if (a.doc.title < b.doc.title) { return -1; }
     if (a.doc.title > b.doc.title) { return 1; }

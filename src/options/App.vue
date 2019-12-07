@@ -3,7 +3,7 @@
     <div class="options__inner">
       <div class="row">
         <ul class="tabs options__tabs">
-          <li v-for="(item, i) in items" :key="i" class="tab col s1"><a :href="item.tabRef" v-bind:class="{ active: item.active }">{{item.name}}</a></li>
+          <li v-for="(item, i) in items" :key="i" class="tab col s1"><a :href="item.tabRef" v-bind:class="{ active: item.checked }">{{item.name}}</a></li>
         </ul>
         <div class="col s12 options__content" v-for="(item, i) in items" :key="i" :id="item.divId">
           <div :is="item.component"></div>
@@ -20,10 +20,10 @@ import OptionsTabs from '../library/static/options'
 import FormGeneral from './components/FormGeneral'
 import FormDatabase from './components/FormDatabase'
 import FormCategory from './components/FormCategory'
+import FormReplication from './components/FormReplication'
 import FormTheme from './components/FormTheme'
 import FormSynthesizer from './components/FormSynthesizer'
 import FormPrivacy from './components/FormPrivacy'
-import FormContact from './components/FormContact'
 import FormAbout from './components/FormAbout'
 export default {
   name: 'App',
@@ -31,10 +31,10 @@ export default {
     FormGeneral,
     FormDatabase,
     FormCategory,
+    FormReplication,
     FormTheme,
     FormSynthesizer,
     FormPrivacy,
-    FormContact,
     FormAbout
   },
   data() {

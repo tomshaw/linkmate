@@ -18,9 +18,11 @@ const mutations = {
 };
 
 const actions = {
+  // Fails!
   LOAD_SESSION({ commit }, { $pouch, database }) {
     return new Promise((resolve, reject) => {
       $pouch.getSession(database).then(res => {
+        console.log('LOAD_SESSION', res);
         if (res.status === 0) {
           reject(new Error("Data status equals zero."));
         } else if (!res.user) {
@@ -48,8 +50,8 @@ const actions = {
       });
     });
   },
-  // Connects you to the defaultDB or given remote DB and returns the user object on success.
-  AUTH_CONNECT_REMOTE({ commit }, { $pouch, database, username, password }) {
+  // Works! Connects you to the remote DB and returns the user object on success.
+  AUTH_CONNECT_REMOTE({ commit }, { $pouch, username, password, database }) {
     return new Promise((resolve, reject) => {
       $pouch.connect(username, password, database).then(res => {
         if (res.hasAccess) {
