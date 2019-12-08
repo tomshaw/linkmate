@@ -139,20 +139,12 @@ const actions = {
       });
     });
   },
-  INSTALL_DATABASE({ dispatch }, { $pouch }) {
+  BULK_DOCUMENTS({}, { $pouch, documents }) {
     return new Promise((resolve, reject) => {
-      dispatch('LOAD_DATABASES', { $pouch }).then((docs) => {
-        if (!docs.length) {
-          $pouch.bulkDocs(defaultDatabases, {}, STORAGE_DBNAME_DATABASES).then((result) => {
-            resolve(result)
-          }).catch((err) => {
-            reject(err)
-          });
-        } else {
-          resolve(docs);
-        }
+      $pouch.bulkDocs(documents, {}, STORAGE_DBNAME_DATABASES).then((result) => {
+        resolve(result)
       }).catch((err) => {
-        reject(err);
+        reject(err)
       });
     });
   },
@@ -187,10 +179,16 @@ const actions = {
     });
   },
   LOAD_DATABASES({ commit }, { $pouch }) {
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve, reject) => {  // filter indexes { startkey: '_design0' }
       $pouch.allDocs({ include_docs: true, attachments: true, descending: true }, STORAGE_DBNAME_DATABASES).then((resp) => {
         let rows = (resp.rows && resp.rows.length) ? resp.rows : [];
-        commit('SET_DATABASES', sortByDocumentTitle(rows))
+        let docs = [];
+        rows.forEach(item => {
+          if (!item.doc.views) { // filter out design views
+            docs.push(item);
+          }
+        });
+        commit('SET_DATABASES', sortByDocumentTitle(docs))
         resolve(rows)
       }).catch(err => {
         reject(err)

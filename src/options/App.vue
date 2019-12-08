@@ -15,6 +15,9 @@
 
 <script>
 import { mapState, mapActions } from 'vuex'
+import { setStorage, getStorage } from '@/library/storage'
+import { STORAGE_DBNAME_DATABASES } from '@/library/static/constants'
+import { defaultDatabases, databaseFields } from '@/library/static/schemas'
 import OptionsTabs from '@/library/static/options'
 import FormGeneral from '@/options/components/FormGeneral'
 import FormDatabase from '@/options/components/FormDatabase'
@@ -24,6 +27,7 @@ import FormTheme from '@/options/components/FormTheme'
 import FormSynthesizer from '@/options/components/FormSynthesizer'
 import FormPrivacy from '@/options/components/FormPrivacy'
 import FormAbout from '@/options/components/FormAbout'
+import AppConfig from 'AppConfig'
 export default {
   name: 'App',
   components: {
@@ -53,22 +57,33 @@ export default {
   },
   created () {
     const $pouch = this.$pouch;
-    this.installDatabase({ $pouch }).then((docs) => {});
+    
+    // If production mode remove development database.
+    if (AppConfig.devMode) {
+      defaultDatabases.pop();
+    }
+
+    // Begin initial database installation.
+    this.loadDatabases({ $pouch }).then((results) => {
+      if (!results.length) {
+        this.bulkDocuments({ $pouch, documents: defaultDatabases }).then(() => {
+          this.createIndexes({ $pouch, fields: databaseFields, database: STORAGE_DBNAME_DATABASES }).then((result) => {}).catch((err) => {});
+        });
+      }
+    });
   },
   mounted() {
     M.AutoInit();
     setTimeout(() => {
-      let elems = document.querySelectorAll('select');
-      let instances = M.FormSelect.init(elems);
-    }, 1e3/2);
-    setTimeout(() => {
-      let el = document.querySelector('.tabs');
-      let instance = M.Tabs.init(el, {});
+      M.FormSelect.init(document.querySelectorAll('select'));
+      M.Tabs.init(document.querySelector('.tabs'), {});
     }, 1e3);
   },
   methods: {
     ...mapActions({
-      installDatabase: 'database/INSTALL_DATABASE'
+      loadDatabases: 'database/LOAD_DATABASES',
+      bulkDocuments: 'database/BULK_DOCUMENTS',
+      createIndexes: 'database/CREATE_INDEXES'
     })
   }
 };

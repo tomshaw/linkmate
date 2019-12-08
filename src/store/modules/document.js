@@ -58,7 +58,7 @@ const actions = {
     });
   },
   LOAD_DOCUMENTS(context, { $pouch, database }) {
-    return new Promise((resolve, reject) => { // filter indexs { startkey: '_design0' }
+    return new Promise((resolve, reject) => { // filter indexes { startkey: '_design0' }
       $pouch.allDocs({ include_docs: true, descending: true, limit: 100 }, database).then((resp) => {
         let rows = (resp.rows && resp.rows.length) ? resp.rows : [];
         let dateOptions = { year: '2-digit', month: '2-digit', day: '2-digit', hour: 'numeric', minute: 'numeric' };

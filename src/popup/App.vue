@@ -6,7 +6,8 @@
 
 <script>
 import { mapState, mapActions, mapMutations } from 'vuex'
-import { setStorage, getStorage } from '../library/storage'
+import { setStorage, getStorage } from '@/library/storage'
+import { defaultDatabases, databaseFields } from '@/library/static/schemas'
 import AppConfig from 'AppConfig'
 export default {
   data() {
@@ -22,7 +23,29 @@ export default {
   created() {
     const $pouch = this.$pouch;
 
-    this.installDatabase({ $pouch });
+    if (AppConfig.devMode) {
+      defaultDatabases.pop();
+    }
+
+    // Begin initial database installation else load selected database.
+    this.loadDatabases({ $pouch }).then((results) => {
+      if (!results.length) {
+        this.bulkDocuments({ $pouch, documents: defaultDatabases }).then(() => {
+          this.createIndexes({ $pouch, fields: databaseFields, database: STORAGE_DBNAME_DATABASES }).then((result) => {}).catch((err) => {});
+        });
+      } else {
+        const filtered = results.filter((value, index, arr) => {
+          return value.doc.selected === true;
+        });
+        if (filtered.length) {
+          const doc = filtered[0].doc;
+          this.setDatabase(doc);
+          this.setCategories(doc.categories);
+        }
+      }
+    }).then(() => {
+      this.$eventHub.$emit("database:initialized", true);
+    }).catch(err => {});
 
     this.$eventHub.$on("sync:databases", () => {
       this.syncDatabases({ $pouch });
@@ -50,21 +73,6 @@ export default {
     this.$on('pouchdb-sync-change', (data) => {
       console.log('pouchdb-sync-change', data);
     });
-
-    this.loadDatabases({ $pouch }).then(resp => {
-      if (resp.length) {
-        const filtered = resp.filter((value, index, arr) => {
-          return value.doc.selected === true;
-        });
-        if (filtered.length) {
-          const doc = filtered[0].doc;
-          this.setDatabase(doc);
-          this.setCategories(doc.categories);
-        }
-      }
-    }).then(() => {
-      this.$eventHub.$emit("database:initialized", true);
-    }).catch(err => {});
 
   },
   mounted() {
@@ -98,10 +106,11 @@ export default {
   },
   methods: {
     ...mapActions({
-      installDatabase: 'database/INSTALL_DATABASE',
+      bulkDocuments: 'database/BULK_DOCUMENTS',
       syncDatabases: 'database/SYNC_DATABASES',
       pushDatabases: 'database/PUSH_DATABASES',
       loadDatabases: 'database/LOAD_DATABASES',
+      createIndexes: 'database/CREATE_INDEXES'
     }),
     ...mapMutations({
       setActivePage: 'page/SET_ACTIVE_PAGE',
