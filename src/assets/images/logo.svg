@@ -1,1 +1,23 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1130.88" height="244.73" viewBox="0 0 1130.88 244.73"><title>logo</title><g id="Original"><text transform="translate(0 195.28)" font-size="227.87" font-family="HelveticaNeueLTCom-Bd, Helvetica Neue LT Com"><tspan font-weight="700">LINK</tspan><tspan x="535.71" y="0" font-family="HelveticaNeueLTCom-Roman, Helvetica Neue LT Com">M</tspan><tspan x="734.17" y="0" font-family="HelveticaNeueLTCom-Roman, Helvetica Neue LT Com" letter-spacing="-0.09em">A</tspan><tspan x="860.87" y="0" font-family="HelveticaNeueLTCom-Roman, Helvetica Neue LT Com" letter-spacing="0em">TE</tspan></text></g><g id="Original_copy" data-name="Original copy"><path d="M34.84,35.57H70.61V168.19h79.3v30.08H34.84Z" transform="translate(-19.12 -2.98)" fill="#fff"/><path d="M170,35.57h35.77v162.7H170Z" transform="translate(-19.12 -2.98)" fill="#fff"/><path d="M237.18,35.57h35.55l67.9,109.15h.46V35.57h33.5v162.7H338.81L271.13,89.34h-.46V198.26h-33.5Z" transform="translate(-19.12 -2.98)" fill="#fff"/><path d="M406,35.57H441.8V103l63.57-67.45H550L486.47,99.83l69.73,98.44H511.3l-49-73.14L441.8,145.85v52.41H406Z" transform="translate(-19.12 -2.98)" fill="#fff"/><path d="M573.05,35.57h29.62l51.27,136.72,51.5-136.72h29.62v162.7H714.56V62.91h-.46L663.29,198.26H644.83L594,62.91h-.46V198.26H573.05Z" transform="translate(-19.12 -2.98)" fill="#fff"/><path d="M815.27,35.57H839.2l63.57,162.7H878.84l-17.77-49H792.25l-18.23,49H751.7ZM799.09,131h55.14L827.12,55.16h-.46Z" transform="translate(-19.12 -2.98)" fill="#fff"/><path d="M934.67,53.8H880.44V35.57h130.11V53.8H956.32V198.26H934.67Z" transform="translate(-19.12 -2.98)" fill="#fff"/><path d="M1028.55,35.57h112.34V53.8H1050.2v51.73h84.54v18.23H1050.2V180h91.37v18.23h-113Z" transform="translate(-19.12 -2.98)" fill="#fff"/></g></svg>
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 21.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 1175 234" enable-background="new 0 0 1175 234" xml:space="preserve">
+<g id="Original" display="none">
+	
+		<text transform="matrix(1 0 0 1 0.1172 198.2637)" display="inline" font-family="'HelveticaNeueLTCom-Bd'" font-size="227.8657px">LINKMATE</text>
+</g>
+<g id="White">
+	<g>
+		<path fill="#FFFFFF" d="M15.8,35.6h35.8v132.6h79.3v30.1H15.8V35.6z"/>
+		<path fill="#FFFFFF" d="M151,35.6h35.8v162.7H151V35.6z"/>
+		<path fill="#FFFFFF" d="M218.2,35.6h35.5l67.9,109.1h0.5V35.6h33.5v162.7h-35.8L252.1,89.3h-0.5v108.9h-33.5V35.6z"/>
+		<path fill="#FFFFFF" d="M387,35.6h35.8V103l63.6-67.4H531l-63.6,64.3l69.7,98.4h-44.9l-49-73.1l-20.5,20.7v52.4H387V35.6z"/>
+		<path fill="#FFFFFF" d="M551.5,35.6h50.4L640,147.4h0.5l36-111.9h50.4v162.7h-33.5V83h-0.5l-39.9,115.3h-27.6L585.5,84.1H585
+			v114.2h-33.5V35.6z"/>
+		<path fill="#FFFFFF" d="M802.7,35.6h36.7l60.8,162.7H863L850.7,162h-60.8l-12.8,36.2h-36.2L802.7,35.6z M799.2,135.4h42.2
+			l-20.5-59.7h-0.5L799.2,135.4z"/>
+		<path fill="#FFFFFF" d="M933.4,65.6h-48.8V35.6H1018v30.1h-48.8v132.6h-35.8V65.6z"/>
+		<path fill="#FFFFFF" d="M1036.7,35.6h121.7v30.1h-85.9v34.9h78.8v27.8h-78.8v39.9h87.7v30.1h-123.5V35.6z"/>
+	</g>
+</g>
+</svg>

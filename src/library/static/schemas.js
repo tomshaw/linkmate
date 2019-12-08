@@ -32,19 +32,21 @@ export const databaseSchema = {
   categories: []
 }
 
+export const categories = ["Arts", "Business", "Entertainment", "Health", "Politics", "Science", "Sports", "Technology", "Weather"];
+
 export const defaultDatabases = [{
   _id: uniqueID(),
-  title: "Documents Database",
+  title: "My Database",
   local: "documents",
   remote: "http://localhost:5984/documents",
   type: "system",
   enabled: true,
   selected: true,
   verified: false,
-  username: "root",
-  password: "password",
+  username: "admin",
+  password: "",
   description: "The default installation database.",
-  categories: []
+  categories: categories
 }, {
   _id: uniqueID(),
   title: "Development Database",
@@ -54,8 +56,8 @@ export const defaultDatabases = [{
   enabled: true,
   selected: false,
   verified: false,
-  username: "root",
-  password: "password",
+  username: "admin",
+  password: "",
   description: "The default development installation database.",
-  categories: []
+  categories: categories
 }];

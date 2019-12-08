@@ -4,7 +4,7 @@
       <div class="slide" data-duration="10" v-for="(item, i) in images" :key="i" :data-slide="i" :data-width="item.width" :data-height="item.height">
         <div class="slide__cover" v-bind:style="{ backgroundImage: 'url(' + item.src + ')' }"></div>
         <div class="slide__content">
-          <div class="slide__inner">
+          <div class="slide__inner" v-if="item.alt">
             <p v-html="item.alt">
           </div>
         </div>
@@ -147,7 +147,7 @@ export default {
 
   &__cover {
     @extend %full;
-    background-image: url("/assets/images/background.png");
+    background-image: url("/assets/images/transparent.png");
     background-position: center center;
     background-size: cover;
     background-repeat: no-repeat;

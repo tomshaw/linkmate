@@ -27,7 +27,7 @@ export default {
   },
   data() {
     return {
-      image: "/assets/images/background.png",
+      image: "/assets/images/transparent.png",
       filtered: false,
       authEnabled: false
     };

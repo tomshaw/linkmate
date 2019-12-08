@@ -8,7 +8,14 @@ const browser = require('webextension-polyfill')
 class BackgroundProcess {
 
   constructor() {
-    this._page = {}
+    this._page = {
+      images: [{
+        src: '/assets/images/transparent.png',
+        width: 340,
+        height: 540,
+        alt: "Welcome To LinkMate"
+      }]
+    }
     this._boundMessageHandler = null
     this._boundTabUpdatedHandler = null
     this._boundTabActivatedHandler = null

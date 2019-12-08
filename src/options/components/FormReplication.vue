@@ -100,10 +100,10 @@ export default {
 
       this.authConnect({ $pouch, username, password, database }).then((result) => {
         this.displayMessage('success', 'Authorization Completed', `You have sucessfully connected to remote database: ${database}.`);
-        this.saveDatabase({ $pouch, doc: { ...item, verified: true } });
+        this.saveDatabase({ $pouch, doc: { ...item, verified: true } }).catch((err) => {});
       }).catch((err) => {
         this.displayMessage('warning', 'Authorization Error', err.message);
-        this.saveDatabase({ $pouch, doc: { ...item, verified: false } });
+        this.saveDatabase({ $pouch, doc: { ...item, verified: false } }).catch((err) => {});
       });
     },
     handlePushDatabase(event, item) {
@@ -114,13 +114,16 @@ export default {
 
       const data = { $pouch, local, remote, options };
 
-      this.pushDatabase(data).then((result) => {
-        this.displayMessage('success', 'Successfully Completed', `You have sucessfully pushed database: ${local} to ${remote}.`);
-      }).then(() => {
-        this.loadDatabases({ $pouch }).catch((err) => {});
-      }).catch((err) => {
-        this.displayMessage('warning', 'Push Database Error', err.message);
-      });
+      try {
+        this.pushDatabase(data).then((result) => {
+          this.displayMessage('success', 'Successfully Completed', `You have sucessfully pushed database: ${local} to ${remote}.`);
+        }).then(() => {
+          this.loadDatabases({ $pouch }).catch((err) => {});
+        }).catch((err) => {
+          this.displayMessage('warning', 'Push Database Error', err.message);
+        });
+      } catch (error) {}
+
     },
     handlePullDatabase(event, item) {
       const $pouch = this.$pouch;
@@ -129,15 +132,17 @@ export default {
       const options = {}; // live: true, retry: true
 
       const data = { $pouch, local, remote, options };
-      console.log('pull-database-options', data);
 
-      this.pullDatabase(data).then((result) => {
-        this.displayMessage('success', 'Successfully Completed', `You have sucessfully pulled database: ${remote} to ${local}.`);
-      }).then(() => {
-        this.loadDatabases({ $pouch }).catch((err) => {});
-      }).catch((err) => {
-        this.displayMessage('warning', 'Pull Database Error', err.message);
-      });
+      try {
+        this.pullDatabase(data).then((result) => {
+          this.displayMessage('success', 'Successfully Completed', `You have sucessfully pulled database: ${remote} to ${local}.`);
+        }).then(() => {
+          this.loadDatabases({ $pouch }).catch((err) => {});
+        }).catch((err) => {
+          this.displayMessage('warning', 'Pull Database Error', err.message);
+        });
+      } catch (error) {}
+
     },
     handleSyncDatabase(event, item) {
       const $pouch = this.$pouch;
