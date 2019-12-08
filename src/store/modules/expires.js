@@ -1,4 +1,4 @@
-import expiration from '../../library/static/expiration'
+import expiration from '@/library/static/expiration'
 
 const state = () => ({
   time: 0,

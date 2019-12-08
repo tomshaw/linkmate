@@ -65,9 +65,9 @@
 
 <script>
 import { mapActions, mapMutations } from 'vuex'
-import { setStorage, getStorage } from '../../library/storage'
-import languages from '../../library/static/languages'
-import authopts from '../../library/static/authopts'
+import { setStorage, getStorage } from '@/library/storage'
+import languages from '@/library/static/languages'
+import authopts from '@/library/static/authopts'
 export default {
   name: "FormGeneral",
   data() {

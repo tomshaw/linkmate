@@ -112,7 +112,7 @@
 <script>
 import { mapState, mapActions, mapMutations } from 'vuex'
 import { parseRemote } from '@/library/utils'
-import { databaseSchema } from '../../library/static/databases'
+import { databaseSchema, documentFields } from '@/library/static/schemas'
 export default {
   name: "FormDatabase",
   data() {
@@ -138,8 +138,8 @@ export default {
       saveDatabase: 'database/SAVE_DATABASE',
       deleteDatabase: 'database/DELETE_DATABASE',
       updateSelected: 'database/UPDATE_SELECTED',
-      databaseInformation: 'database/DATABASE_INFORMATION',
-      createRemoteDatabase: 'database/CREATE_REMOTE_DATABASE',
+      dbInformation: 'database/DATABASE_INFORMATION',
+      createRemote: 'database/CREATE_REMOTE_DATABASE',
       createIndexes: 'database/CREATE_INDEXES'
     }),
     ...mapMutations({
@@ -155,9 +155,7 @@ export default {
           this.setDatabase(databaseSchema);
         });
       }).then(() => {
-        const fields = ["title", "description", "category", "expires", "created"];
-        const database = doc.local;
-        this.createIndexes({ $pouch, fields, database }).then((result) => {
+        this.createIndexes({ $pouch, fields: documentFields, database: doc.local }).then((result) => {
           console.log('create-indexes-result', result);
         }).catch((err) => {});
       }).catch((err) => {});
@@ -167,19 +165,16 @@ export default {
       const database = item.local;
       
       this.loadDatabase({ $pouch, docId: item.id }).then((result) => {
-        console.log('load-database-response', result.local);
         this.showForm = true;
       });
 
-      this.databaseInformation({ $pouch, database }).then((result) => {
+      this.dbInformation({ $pouch, database }).then((result) => {
         console.log('database-information', result);
       });
 
-      const fields = ["title", "description", "category", "expires", "created"];
-      this.createIndexes({ $pouch, fields, database }).then((result) => {
+      this.createIndexes({ $pouch, fields: documentFields, database }).then((result) => {
         console.log('create-indexes-result', result);
       }).catch((err) => {});
-
     },
     deleteItem(doc, index) {
       const $pouch = this.$pouch;
@@ -206,7 +201,7 @@ export default {
       if (item.verified) {
         this.updateVerifiedStatus({...item, verified: false})
       } else {
-        this.createRemoteDatabase({ $pouch, data }).then((resp) => {
+        this.createRemote({ $pouch, data }).then((resp) => {
           this.updateVerifiedStatus({ ...item, verified: true })
         }).catch((err) => {});
       }

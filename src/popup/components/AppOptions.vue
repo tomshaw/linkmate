@@ -18,8 +18,8 @@
 
 <script>
 import { mapState, mapActions } from 'vuex'
-import { getStorage } from '../../library/storage'
-import { STORAGE_DBNAME_DOCUMENTS } from '../../library/static/constants'
+import { getStorage } from '@/library/storage'
+import { STORAGE_DBNAME_DOCUMENTS } from '@/library/static/constants'
 import AppButtons from './AppButtons.vue'
 export default {
   components: {

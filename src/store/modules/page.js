@@ -1,5 +1,5 @@
-import { accumulateProperties } from '../../library/utils'
-import { pageSchema } from '../../library/static/schemas'
+import { accumulateProperties } from '@/library/utils'
+import { documentSchema } from '@/library/static/schemas'
 
 const state = () => ({
   page: {}
@@ -11,7 +11,7 @@ const getters = {
 
 const mutations = {
   SET_ACTIVE_PAGE(state, payload) {
-    let values = accumulateProperties(pageSchema, payload)
+    let values = accumulateProperties(documentSchema, payload)
     if (payload._id) {
       values._id = payload._id;
     }

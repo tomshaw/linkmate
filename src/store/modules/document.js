@@ -1,4 +1,4 @@
-import { sortByCreation } from '../../library/utils'
+import { sortByCreation } from '@/library/utils'
 
 const state = () => ({
   document: {},

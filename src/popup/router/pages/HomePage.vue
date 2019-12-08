@@ -11,11 +11,11 @@
 </template>
 
 <script>
-import AppHeader from '../../components/AppHeader'
-import AppFeatured from '../../components/AppFeatured'
-import AppArticle from '../../components/AppArticle'
-import AppHistory from '../../components/AppHistory'
-import AppOptions from '../../components/AppOptions'
+import AppHeader from '@/popup/components/AppHeader'
+import AppFeatured from '@/popup/components/AppFeatured'
+import AppArticle from '@/popup/components/AppArticle'
+import AppHistory from '@/popup/components/AppHistory'
+import AppOptions from '@/popup/components/AppOptions'
 export default {
   components: {
     AppHeader,

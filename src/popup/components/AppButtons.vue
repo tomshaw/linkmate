@@ -42,8 +42,8 @@
 
 <script>
 import { mapGetters } from "vuex";
-import { getStorage, removeStorage } from "../../library/storage";
-import SpeechSynthesizer from "../../library/synthesizer";
+import { getStorage, removeStorage } from "@/library/storage";
+import SpeechSynthesizer from "@/library/synthesizer";
 export default {
   props: {
     hidden: Boolean,

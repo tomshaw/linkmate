@@ -15,16 +15,15 @@
 
 <script>
 import { mapState, mapActions } from 'vuex'
-import { setStorage, getStorage } from '../library/storage'
-import OptionsTabs from '../library/static/options'
-import FormGeneral from './components/FormGeneral'
-import FormDatabase from './components/FormDatabase'
-import FormCategory from './components/FormCategory'
-import FormReplication from './components/FormReplication'
-import FormTheme from './components/FormTheme'
-import FormSynthesizer from './components/FormSynthesizer'
-import FormPrivacy from './components/FormPrivacy'
-import FormAbout from './components/FormAbout'
+import OptionsTabs from '@/library/static/options'
+import FormGeneral from '@/options/components/FormGeneral'
+import FormDatabase from '@/options/components/FormDatabase'
+import FormCategory from '@/options/components/FormCategory'
+import FormReplication from '@/options/components/FormReplication'
+import FormTheme from '@/options/components/FormTheme'
+import FormSynthesizer from '@/options/components/FormSynthesizer'
+import FormPrivacy from '@/options/components/FormPrivacy'
+import FormAbout from '@/options/components/FormAbout'
 export default {
   name: 'App',
   components: {
@@ -54,7 +53,7 @@ export default {
   },
   created () {
     const $pouch = this.$pouch;
-    this.installDatabase({ $pouch });
+    this.installDatabase({ $pouch }).then((docs) => {});
   },
   mounted() {
     M.AutoInit();

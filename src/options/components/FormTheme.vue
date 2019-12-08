@@ -54,8 +54,8 @@
 
 <script>
 import { mapActions, mapMutations } from 'vuex'
-import { setStorage, getStorage } from '../../library/storage'
-import CustomThemes from '../../library/static/themes'
+import { setStorage, getStorage } from '@/library/storage'
+import CustomThemes from '@/library/static/themes'
 export default {
   name: 'FormTheme',
   data() {

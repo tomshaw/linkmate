@@ -84,9 +84,9 @@
 
 <script>
 import { mapState, mapActions, mapMutations, mapGetters } from 'vuex'
-import { setStorage, getStorage } from '../../library/storage'
-import { defaultDatabases } from '../../library/static/databases'
-import { sortArray } from '../../library/utils'
+import { setStorage, getStorage } from '@/library/storage'
+import { defaultDatabases } from '@/library/static/schemas'
+import { sortArray } from '@/library/utils'
 export default {
   name: "FormCategory",
   data() {

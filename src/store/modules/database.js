@@ -1,8 +1,8 @@
 import PouchDB from 'pouchdb'
 
-import { defaultDatabases } from '../../library/static/databases'
-import { STORAGE_DBNAME_DATABASES } from '../../library/static/constants'
-import { buildConnectionString, sortByDocumentTitle } from '../../library/utils'
+import { defaultDatabases, databaseFields } from '@/library/static/schemas'
+import { STORAGE_DBNAME_DATABASES } from '@/library/static/constants'
+import { buildConnectionString, sortByDocumentTitle } from '@/library/utils'
 
 const state = () => ({
   catname: "", // new db name
@@ -186,11 +186,11 @@ const actions = {
       });
     });
   },
-  LOAD_DATABASES(context, { $pouch }) {
+  LOAD_DATABASES({ commit }, { $pouch }) {
     return new Promise((resolve, reject) => {
       $pouch.allDocs({ include_docs: true, attachments: true, descending: true }, STORAGE_DBNAME_DATABASES).then((resp) => {
         let rows = (resp.rows && resp.rows.length) ? resp.rows : [];
-        context.commit('SET_DATABASES', sortByDocumentTitle(rows))
+        commit('SET_DATABASES', sortByDocumentTitle(rows))
         resolve(rows)
       }).catch(err => {
         reject(err)

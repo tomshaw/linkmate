@@ -69,7 +69,7 @@
 
 <script>
 import { mapState, mapActions, mapMutations, mapGetters } from 'vuex'
-import { getStorage } from '../../../library/storage'
+import { getStorage } from '@/library/storage'
 import AppConfig from 'AppConfig'
 export default {
   data() {

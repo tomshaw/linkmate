@@ -7,9 +7,9 @@
 
 <script>
 import { mapState } from 'vuex'
-import SpeechSynthesizer from '../../library/synthesizer'
-import CustomThemes from '../../library/static/themes'
-import { getStorage } from '../../library/storage'
+import SpeechSynthesizer from '@/library/synthesizer'
+import CustomThemes from '@/library/static/themes'
+import { getStorage } from '@/library/storage'
 import AppSlider from './AppSlider.vue'
 import AppButtons from './AppButtons.vue'
 export default {

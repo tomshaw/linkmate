@@ -83,8 +83,8 @@
 </template>
 
 <script>
-import SpeechSynthesizer from '../../library/synthesizer'
-import { setStorage, getStorage } from '../../library/storage'
+import SpeechSynthesizer from '@/library/synthesizer'
+import { setStorage, getStorage } from '@/library/storage'
 export default {
   name: 'FormSynthesizer',
   data() {

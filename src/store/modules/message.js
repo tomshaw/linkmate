@@ -4,8 +4,8 @@ const state = () => ({
   enabled: false,
   timeout: false,
   content: {
-    header: 'Database Management',
-    paragraph: 'Either a remote or local database name is required. Passwords are never stored and are only used for validation.'
+    header: '',
+    paragraph: ''
   }
 });
 

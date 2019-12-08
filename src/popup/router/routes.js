@@ -1,5 +1,5 @@
-import HomePage from './pages/HomePage'
-import AuthPage from './pages/AuthPage'
+import HomePage from '@/popup/router/pages/HomePage'
+import AuthPage from '@/popup/router/pages/AuthPage'
 
 export default [{
   path: '/',
