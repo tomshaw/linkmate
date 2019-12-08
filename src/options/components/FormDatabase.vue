@@ -149,15 +149,13 @@ export default {
       const $pouch = this.$pouch;
       let doc = this.database;
       if (!doc.id) doc.id = new Date().getTime();
+      if (!doc.local) return;
+
       this.saveDatabase({ $pouch, doc }).then((resp) => {
         this.loadDatabases({ $pouch }).then((item) => {
           this.showForm = false;
           this.setDatabase(databaseSchema);
         });
-      }).then(() => {
-        this.createIndexes({ $pouch, fields: documentFields, database: doc.local }).then((result) => {
-          console.log('create-indexes-result', result);
-        }).catch((err) => {});
       }).catch((err) => {});
     },
     updateItem(item) {
@@ -171,10 +169,6 @@ export default {
       this.dbInformation({ $pouch, database }).then((result) => {
         console.log('database-information', result);
       });
-
-      this.createIndexes({ $pouch, fields: documentFields, database }).then((result) => {
-        console.log('create-indexes-result', result);
-      }).catch((err) => {});
     },
     deleteItem(doc, index) {
       const $pouch = this.$pouch;
