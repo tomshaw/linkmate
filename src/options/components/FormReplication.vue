@@ -88,7 +88,7 @@ export default {
       pushDatabase: 'database/PUSH_DATABASE',
       pullDatabase: 'database/PULL_DATABASE',
       syncDatabase: 'database/SYNC_DATABASE',
-      authConnect: 'session/AUTH_CONNECT_REMOTE', // works
+      authConnect: 'session/AUTH_CONNECT_REMOTE',
     }),
     verifiySelected(event, item) {
       const $pouch = this.$pouch;
@@ -113,7 +113,6 @@ export default {
       const options = {}; // live: true, retry: true 
 
       const data = { $pouch, local, remote, options };
-      console.log('push-database-options', data);
 
       this.pushDatabase(data).then((result) => {
         this.displayMessage('success', 'Successfully Completed', `You have sucessfully pushed database: ${local} to ${remote}.`);

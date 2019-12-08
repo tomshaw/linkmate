@@ -1,3 +1,5 @@
+import { uniqueID } from "@/library/utils";
+
 // indexes
 export const documentFields = ["title", "description", "category", "expires"];
 export const databaseFields = ["enabled", "selected", "verified", "categories"];
@@ -31,7 +33,7 @@ export const databaseSchema = {
 }
 
 export const defaultDatabases = [{
-  id: 1,
+  _id: uniqueID(),
   title: "Documents Database",
   local: "documents",
   remote: "http://localhost:5984/documents",
@@ -44,7 +46,7 @@ export const defaultDatabases = [{
   description: "The default installation database.",
   categories: []
 }, {
-  id: 2,
+  _id: uniqueID(),
   title: "Development Database",
   local: "development",
   remote: "http://localhost:5984/development",

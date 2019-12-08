@@ -1,6 +1,4 @@
 import PouchDB from 'pouchdb'
-
-import { defaultDatabases, databaseFields } from '@/library/static/schemas'
 import { STORAGE_DBNAME_DATABASES } from '@/library/static/constants'
 import { buildConnectionString, sortByDocumentTitle } from '@/library/utils'
 
@@ -20,7 +18,7 @@ const getters = {
   getCategories: state => state.categories,
   getDatabaseById: state => {
     return databaseId => state.databases.filter(item => {
-      return item.doc.id === databaseId;
+      return item.doc._id === databaseId;
     });
   }
 };

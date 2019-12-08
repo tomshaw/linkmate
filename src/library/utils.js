@@ -1,4 +1,9 @@
-const browser = require('webextension-polyfill')
+const browser = require('webextension-polyfill');
+
+// @see https://dev.to/torstendittmann/the-most-absurd-way-of-creating-unique-identifiers-2nie
+export function uniqueID() {
+  return new Date().getTime().toString().concat(performance.now());
+}
 
 export function sendNotification(options, autoCloseMessage = false, isClickOptions = false) {
 

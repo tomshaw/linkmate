@@ -65,11 +65,10 @@ const actions = {
         let dateObject = new Date();
         let docs = [];
         rows.forEach(item => {
-          console.log('item', item);
-          let created = new Date(item.doc.created);
-          //item.doc.date = created.toLocaleDateString("en-US");
+          let created = new Date(parseInt(item.id));
           item.doc.date = created.toLocaleDateString("en-US", dateOptions);
-          item.doc.newItem = (dateObject.toDateString() === created.toDateString());
+          // @todo fix recently saved.
+          item.doc.recent = (dateObject.toDateString() === created.toDateString());
           if (!item.doc.views) { // filter out design views
             docs.push(item.doc);
           }
@@ -96,7 +95,7 @@ const actions = {
   },
   SUBMIT_DOCUMENT({ dispatch }, { $pouch, database, doc }) {
     return new Promise((resolve, reject) => {
-      $pouch.post(doc, {}, database).then((resp) => {
+      $pouch.put(doc, {}, database).then((resp) => {
         dispatch('LOAD_DOCUMENTS', { $pouch, database }).then(() => {
           resolve(resp)
         }).catch((err) => {

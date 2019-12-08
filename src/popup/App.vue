@@ -7,6 +7,7 @@
 <script>
 import { mapState, mapActions, mapMutations } from 'vuex'
 import { setStorage, getStorage } from '@/library/storage'
+import { STORAGE_DBNAME_DATABASES } from '@/library/static/constants'
 import { defaultDatabases, databaseFields } from '@/library/static/schemas'
 import AppConfig from 'AppConfig'
 export default {
@@ -23,7 +24,8 @@ export default {
   created() {
     const $pouch = this.$pouch;
 
-    if (AppConfig.devMode) {
+    // If production mode remove development database.
+    if (!AppConfig.devMode) {
       defaultDatabases.pop();
     }
 
@@ -48,11 +50,11 @@ export default {
     }).catch(err => {});
 
     this.$eventHub.$on("sync:databases", () => {
-      this.syncDatabases({ $pouch });
+      //this.syncDatabases({ $pouch });
     });
 
     this.$eventHub.$on("push:databases", () => {
-      this.pushDatabases({ $pouch });
+      //this.pushDatabases({ $pouch });
     });
 
     this.$eventHub.$on("toggle:screen", (screen, options = {}) => {
@@ -82,14 +84,12 @@ export default {
       const session = (response.session) ? response.session : {};
       if (options.general) {
         if (options.general.auth_enabled) {
-          if (session.ok) {
-            this.session = session;
-          } else {
-            this.session = false;
-          }
+          this.session = (session.ok) ? session : false;
         } else {
           this.session = options.general;
         }
+      } else {
+        this.session = {};
       }
     }).then(() => {
       if (!this.session) {

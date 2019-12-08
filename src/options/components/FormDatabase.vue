@@ -148,7 +148,7 @@ export default {
     submit(event) {
       const $pouch = this.$pouch;
       let doc = this.database;
-      if (!doc.id) doc.id = new Date().getTime();
+      if (!doc._id) doc._id = new Date().getTime().toString();
       if (!doc.local) return; // databases require a name.
       this.saveDatabase({ $pouch, doc }).then((resp) => {
         this.loadDatabases({ $pouch }).then((item) => {

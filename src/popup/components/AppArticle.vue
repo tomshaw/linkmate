@@ -164,24 +164,22 @@ export default {
       const database = this.getDatabase;
       const category = this.getCategory;
       const expires = this.getExpiration;
-      const now = new Date().toISOString();
 
       let doc = { ...page, database: database.id, category, expires };
 
-      if (doc._id && doc._ref) {
-        doc.updated = now;
-      } else {
-        doc.created = now;
-        doc.updated = now;
+      if (!doc._id) {
+        doc._id = new Date().getTime().toString();
       }
 
-      console.log("submit-page-document", doc);
+      console.log("submit-document", doc);
 
       this.submitDocument({ $pouch, database: database.local, doc }).then((resp) => {
         this.$eventHub.$emit("push:databases");
         this.$eventHub.$emit("toggle:screen", "screen-history");
         this.$eventHub.$emit("database:initialized", true);
-      }).catch((err) => {});
+      }).catch((err) => {
+        console.log("submit-document-error", err);
+      });
 
     },
     handleSubmitSearch(event) {
@@ -193,12 +191,14 @@ export default {
 
       const searchParams = { title: page.title, description: page.description, database, category, expires };
 
+      //@todo ordering https://pouchdb.com/guides/mango-queries.html
+
       let options = {
         selector: {
-          title: { $exists: true },
-          description: { $description: true },
-          category: { $category: true },
-          expires: { $exists: true }
+          title: { $gte: null }, // $exists: true
+          description: { $gte: null },
+          category: { $gte: null },
+          expires: { $gte: null }
         },
         limit: 100,
       };

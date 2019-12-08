@@ -59,7 +59,7 @@ export default {
     const $pouch = this.$pouch;
     
     // If production mode remove development database.
-    if (AppConfig.devMode) {
+    if (!AppConfig.devMode) {
       defaultDatabases.pop();
     }
 
