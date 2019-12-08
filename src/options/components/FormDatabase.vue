@@ -149,25 +149,28 @@ export default {
       const $pouch = this.$pouch;
       let doc = this.database;
       if (!doc.id) doc.id = new Date().getTime();
-      if (!doc.local) return;
-
+      if (!doc.local) return; // databases require a name.
       this.saveDatabase({ $pouch, doc }).then((resp) => {
         this.loadDatabases({ $pouch }).then((item) => {
           this.showForm = false;
           this.setDatabase(databaseSchema);
+        });
+      }).then(() => {
+        if (doc._id) return; // Run only once when db is created.
+        const database = doc.local;
+        const fields = documentFields;
+        this.dbInformation({ $pouch, database }).then((result) => {
+          this.createIndexes({ $pouch, fields, database }).then((result) => {
+            console.log('create-indexes-result', result);
+          }).catch((err) => {});
         });
       }).catch((err) => {});
     },
     updateItem(item) {
       const $pouch = this.$pouch;
       const database = item.local;
-      
       this.loadDatabase({ $pouch, docId: item.id }).then((result) => {
         this.showForm = true;
-      });
-
-      this.dbInformation({ $pouch, database }).then((result) => {
-        console.log('database-information', result);
       });
     },
     deleteItem(doc, index) {

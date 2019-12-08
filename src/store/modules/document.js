@@ -58,21 +58,24 @@ const actions = {
     });
   },
   LOAD_DOCUMENTS(context, { $pouch, database }) {
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve, reject) => { // filter indexs { startkey: '_design0' }
       $pouch.allDocs({ include_docs: true, descending: true, limit: 100 }, database).then((resp) => {
-        let docs = (resp.rows && resp.rows.length) ? resp.rows : [];
+        let rows = (resp.rows && resp.rows.length) ? resp.rows : [];
         let dateOptions = { year: '2-digit', month: '2-digit', day: '2-digit', hour: 'numeric', minute: 'numeric' };
         let dateObject = new Date();
-        let rows = [];
-        docs.forEach(item => {
+        let docs = [];
+        rows.forEach(item => {
+          console.log('item', item);
           let created = new Date(item.doc.created);
           //item.doc.date = created.toLocaleDateString("en-US");
           item.doc.date = created.toLocaleDateString("en-US", dateOptions);
           item.doc.newItem = (dateObject.toDateString() === created.toDateString());
-          rows.push(item.doc);
+          if (!item.doc.views) { // filter out design views
+            docs.push(item.doc);
+          }
         });
-        context.commit('SET_DOCUMENTS', sortByCreation(rows));
-        resolve(rows);
+        context.commit('SET_DOCUMENTS', sortByCreation(docs));
+        resolve(docs);
       }).catch(err => {
         reject(err);
       });

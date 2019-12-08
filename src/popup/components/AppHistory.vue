@@ -54,10 +54,12 @@ export default {
       }
     },
     upperFirst: function(v) {
-      return v[0].toUpperCase() + v.substr(1);
+      if (v && v.length) {
+        return v[0].toUpperCase() + v.substr(1);
+      }
     },
     limitLength: function(v) {
-      if (v) {
+      if (v && v.length) {
         return v.substring(0, 75);
       }
     }
