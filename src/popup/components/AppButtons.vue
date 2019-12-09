@@ -11,12 +11,12 @@
       </a>
     </template>
     <ul>
-      <li>
+      <li v-if="pageActive">
         <a class="btn-floating teal" title="Download Images" @click="handleDownloadImages($event)">
           <i class="material-icons">camera_roll</i>
         </a>
       </li>
-      <li v-if="activeScreen === 'screen-featured' || activeScreen === 'screen-article'">
+      <li v-if="pageActive && (activeScreen === 'screen-featured' || activeScreen === 'screen-article')">
         <a class="btn-floating red" title="Speech Listen" @click="handleListenSpeech($event)">
           <i class="material-icons">play_circle_filled</i>
         </a>
@@ -46,7 +46,6 @@ import { getStorage, removeStorage } from "@/library/storage";
 import SpeechSynthesizer from "@/library/synthesizer";
 export default {
   props: {
-    hidden: Boolean,
     authEnabled: {
       type: Boolean,
       default: false,
@@ -81,7 +80,10 @@ export default {
   computed: {
     ...mapGetters({
       getActivePage: "page/getActivePage"
-    })
+    }),
+    pageActive: function () {
+      return typeof this.getActivePage.match !== 'undefined';
+    }
   },
   created() {
     this.speechSynthesizer = new SpeechSynthesizer();
@@ -93,6 +95,7 @@ export default {
         { direction: "right" }
       );
     });
+    
     this.$eventHub.$on("search:mode", $event => {
       this.searchMode = true;
     });

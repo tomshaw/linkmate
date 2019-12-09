@@ -79,21 +79,17 @@ export default {
       removeDocument: 'document/REMOVE_DOCUMENT'
     }),
     ...mapMutations({
-      setActivePage: 'page/SET_ACTIVE_PAGE', // check id and rev
+      setActivePage: 'page/SET_ACTIVE_PAGE',
     }),
     onUpdateClick(doc) {
       const $pouch = this.$pouch;
 
       this.setActivePage(doc);
 
-      const search = this.getDatabaseById(doc.database);
-
-      if (search && search.length && search[0].doc.local) {
-        const database = search[0].doc.local;
-        this.loadDocument({ $pouch, database, docId: doc._id }).then((resp) => {
+      if (this.database && this.database.local) {
+        this.loadDocument({ $pouch, database: this.database.local, docId: doc._id }).then((resp) => {
           M.FormSelect.init(document.getElementById('category'));
           M.FormSelect.init(document.getElementById('expires'));
-        }).then(() => {
           M.updateTextFields();
         }).then(() => {
           this.$eventHub.$emit("toggle:screen", "screen-article");
@@ -102,10 +98,8 @@ export default {
     },
     onDeleteClick(doc) {
       const $pouch = this.$pouch;
-      const search = this.getDatabaseById(doc.database);
-      if (search && search.length && search[0].doc.local) {
-        const database = search[0].doc.local;
-        this.removeDocument({ $pouch, database, doc }).then((resp) => {}).catch(err => {});
+      if (this.database && this.database.local) {
+        this.removeDocument({ $pouch, database: this.database.local, doc }).then((resp) => {}).catch(err => {});
       }
     },
     onLaunchClick(item) {

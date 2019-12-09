@@ -64,7 +64,7 @@
     </div>
 
     <AppButtons
-      buttonStyle="blue"
+      buttonStyle="teal"
       buttonIcon="attach_file"
       toggleScreen="screen-featured"
       activeScreen="screen-article"
@@ -164,6 +164,10 @@ export default {
       const database = this.getDatabase;
       const category = this.getCategory;
       const expires = this.getExpiration;
+
+      if (typeof page.match === 'undefined') {
+        return;
+      }
 
       let doc = { ...page, database: database.id, category, expires };
 
