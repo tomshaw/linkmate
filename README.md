@@ -23,7 +23,11 @@ Functionality you'll find in this application:
 
 ## Application Directions
 
-Once the application is loaded head on over to the options page and start by filling in your general information and hitting the submit button. Next create a some databases to organize your bookmarks such as sports or cooking. Once done click the category tab and create some categories for your databases. If you like check, out some of the themes and hit apply. Now your ready to start booking marking some web pages. If you must backup your bookmarks while the application is in development, install a local copy of [CouchDb](https://couchdb.apache.org/), disable Admin Party in [Fauxton](https://couchdb.apache.org/fauxton-visual-guide/) by creating a username and password. On the LinkMate options page, create a new local and remote database specifying your credentials and finally on the replication tab, push the database to back it up or pull the database to restore. Note you can also create a user and give them permissions to the database or assign the user to a group with database permissions. To quickly create a new user, on the options general tab, enable remote authentication and click the register link on the login screen. 
+Once the application is loaded head on over to the options page and start by filling in your general information and hitting the submit button. Next create some databases to organize your bookmarks such as sports or cooking. Once done click the category tab and create some categories for your databases such as football and basketball for sports and recipes and deserts for cooking. If you like check, out some of the themes and hit apply. Now your ready to start booking marking some web pages. 
+
+## Replication Directions
+
+The first step in learning how replication works is to install a local copy of [CouchDb](https://couchdb.apache.org/), and disable the Admin Party in [Fauxton](https://couchdb.apache.org/fauxton-visual-guide/) by creating a username and password. Create an empty database by clicking the create database button. In the LinkMate extension options menu, click the database tab and create a new database. Make sure to enter your correct username and password and remote database url. Next on the replication tab, click the checkbox to verifiy your connection and push the database to back it up or pull the database to restore. Note you can also create a user and give them permissions to the database or assign the user to a group with database permissions. To quickly create a new user, on the options general tab, enable remote authentication and click the register link on the login screen. 
 
 ## Libraries Used
 
@@ -33,6 +37,7 @@ Once the application is loaded head on over to the options page and start by fil
 + [PouchDB](https://github.com/pouchdb/pouchdb) - PouchDB is a pocket-sized database.
 + [PouchVue](https://github.com/MDSLKTR/pouch-vue) - Pouchdb bindings for Vue.js
 + [Materialize](https://github.com/Dogfalo/materialize) - Materialize, a CSS Framework based on Material Design
++ [webextension-polyfill](https://github.com/mozilla/webextension-polyfill) - A lightweight polyfill library for Promise-based WebExtension APIs in Chrome
 
 ## Further Reading
 
