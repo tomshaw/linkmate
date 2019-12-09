@@ -23,7 +23,7 @@
       <div class="row">
         <div class="input-field col s6">
           <input type="email" class="validate" name="email" id="email" v-model="options.email" placeholder="Email address" />
-          <label for="full_name">Email address</label>
+          <label for="email">Email address</label>
         </div>
         <div class="input-field col s6">
           <select name="language" id="language" v-model="options.language">
@@ -41,8 +41,8 @@
           <label for="language">Enable authentication</label>
         </div>
        <div class="input-field col s6">
-          <input type="text" class="auth_database" name="auth_database" id="auth_database" v-model="options.auth_database" placeholder="Auth database" />
-          <label for="full_name">Auth database</label>
+          <input type="text" class="auth_database" name="auth_database" id="auth_database" v-model="options.auth_database" placeholder="http://localhost:5984/_user" />
+          <label for="auth_database">Auth database</label>
           <span class="helper-text" data-error="wrong" data-success="right">Requires remote database.</span>
         </div>
       </div>
