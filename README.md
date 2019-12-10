@@ -1,10 +1,12 @@
 <h1><img src="https://github.com/tomshaw/linkmate/blob/master/docs/screenshots/logo.png" alt="LinkMate" title="LinkMate"></h1>
 
+[![Make a pull request][mpr-badge]][mpr]
 [![Tag](https://img.shields.io/github/tag/tomshaw/linkmate.svg)](https://github.com/tomshaw/linkmate/tags)
 [![GitHub (pre-)release](https://img.shields.io/github/release/tomshaw/linkmate/all.svg)](https://github.com/tomshaw/linkmate/releases)
 [![Version npm](https://img.shields.io/npm/v/linkmate.svg)](https://www.npmjs.com/package/linkmate)
 [![Downloads npm](https://img.shields.io/npm/dt/linkmate.svg)](https://www.npmjs.com/package/linkmate)
 [![MIT license](https://img.shields.io/npm/l/linkmate.svg)](https://github.com/tomshaw/linkmate/blob/master/LICENSE)
+[![Tweet][twitter-badge]][twitter]
 
 ## Overview
 
@@ -27,7 +29,7 @@ Once the application is loaded head on over to the options page and start by fil
 
 ## Replication Directions
 
-The first step in learning how replication works is to install a local copy of [CouchDb](https://couchdb.apache.org/), and disable the Admin Party in [Fauxton](https://couchdb.apache.org/fauxton-visual-guide/) by creating a username and password. Create an empty database by clicking the create database button. In the LinkMate extension options menu, click the database tab and create a new database. Make sure to enter your correct username and password and remote database url. Next on the replication tab, click the checkbox to verifiy your connection. Once verfied click the push button to back your data or pull to restore it. Note you can also create a user and give them permissions to the database or assign the user to a group with database permissions. To quickly create a new user, on the options general tab, enable remote authentication and click the register link on the login screen. 
+The first step in learning how replication works is to install a local copy of [CouchDb](https://couchdb.apache.org/), and disable the Admin Party in [Fauxton](https://couchdb.apache.org/fauxton-visual-guide/) by creating a username and password. Create an empty database by clicking the create database button. In the LinkMate extension options menu, click the database tab and create a new database. Make sure to enter your correct username and password and remote database url. Next on the replication tab, click the checkbox to verifiy your connection. Once verified click the push button to back your data or pull to restore it. Note you can also create a user and give them permissions to the database or assign the user to a group with database permissions. To quickly create a new user, on the options general tab, enable remote authentication and click the register link on the login screen. 
 
 ## Libraries Used
 
@@ -86,3 +88,8 @@ See the bundled LICENSE file for details.
 ## Author
 
 Tom Shaw (@urlrider)
+
+[mpr-badge]: https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square
+[mpr]: http://makeapullrequest.com
+[twitter]: https://twitter.com/intent/tweet?text=Check%20out%20LinkMate!%20https://github.com/tomshaw/linkmate%20%F0%9F%91%8D
+[twitter-badge]: https://img.shields.io/twitter/url/https/github.com/tomshaw/linkmate.svg?style=social
