@@ -53,6 +53,9 @@ class BackgroundProcess {
     }
   }
 
+  // @todo Create an array of pages indexed by tab id, use the onActivated handler to find/set active page.
+  // _pages = []
+  // _page = {}
   handleTabActivated(info) {
     try {
       browser.tabs.sendMessage(info.tabId, {
@@ -103,7 +106,7 @@ class BackgroundProcess {
 
     if (isUpdate) {
       getStorage(['extension']).then(item => {
-        let created = item.extension.created_at;
+        let created = item.extension.created;
         let previousVersion = item.extension.version.current;
         setStorage({
           extension: {

@@ -77,8 +77,8 @@ export default {
       actionType: "login",
       database: "http://localhost:5984/_user",
       input: {
-        username: "tomshaw",
-        password: "password"
+        username: "",
+        password: ""
       }
     };
   },
@@ -111,7 +111,7 @@ export default {
       const username = this.input.username;
       const password = this.input.password;
       if (username && password) {
-        this.authConnect({ $pouch, database, username, password }).then(resp => {
+        this.authConnect({ $pouch, username, password, database }).then(resp => {
           if (resp.hasAccess) {
             this.$emit("session", resp);
             this.$router.replace({ name: "HomePage" });
@@ -120,19 +120,17 @@ export default {
       }
     },
     submitRegister() {
-      // @todo check requires cookie
       const $pouch = this.$pouch;
       const database = this.database;
       const username = this.input.username;
       const password = this.input.password;
       if (username && password) {
-        const params = { $pouch, database, username, password };
-        try {
-          this.createUser(params).then(resp => {
+        this.createUser({ $pouch, username, password, database }).then(resp => {
+          if (resp.hasAccess) {
             this.$emit("session", resp);
             this.$router.replace({ name: "HomePage" });
-          }).catch(err => {});
-        } catch (err) {}
+          }
+        }).catch(err => {});
       }
     },
     handleLoadSession(params) {

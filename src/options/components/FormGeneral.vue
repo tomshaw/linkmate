@@ -85,10 +85,13 @@ export default {
     };
   },
   mounted() {
-    getStorage("options").then(response => {
-      const data = (response.options) ? response.options : {};
-      if (data.general) {
-        this.options = data.general;
+    getStorage(["options", "session", "extension"]).then(response => {
+      console.log('storage', response);
+      const options = (response.options) ? response.options : {};
+      const session = (response.session) ? response.session : {};
+      const extension = (response.extension) ? response.extension : {};
+      if (options.general) {
+        this.options = options.general;
       }
     });
   },

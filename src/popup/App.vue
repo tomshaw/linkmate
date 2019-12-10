@@ -57,6 +57,10 @@ export default {
       //this.pushDatabases({ $pouch });
     });
 
+    this.$eventHub.$on("session", (result) => {
+      console.log('session-result', result);
+    });
+
     this.$eventHub.$on("toggle:screen", (screen, options = {}) => {
       if (options.event) {
         this.$eventHub.$emit(options.event, options);
@@ -125,7 +129,7 @@ export default {
       }
     },
     setSession(data) {
-      this.session = (data.hasAccess && data.hasAccess === true && data.user) ? data.user : false
+      this.session = (data.hasAccess && data.hasAccess === true && data.user) ? data.user : false;
       if (this.session) {
         setStorage({session: data.user});
       }

@@ -51,7 +51,10 @@ export default {
     });
 
     getStorage(["options", "session", "extension"]).then(response => {
+      console.log("storage", response);
       const options = (response.options) ? response.options : {};
+      const session = (response.session) ? response.session : {};
+      const extension = (response.extension) ? response.extension : {};
       if (options.general) {
         if (options.general.auth_enabled) {
           this.authEnabled = options.general.auth_enabled
