@@ -8,6 +8,7 @@ const browser = require('webextension-polyfill')
 class BackgroundProcess {
 
   constructor() {
+    this.pages = [];
     this._page = {
       images: [{
         src: '/assets/images/transparent.png',
@@ -46,6 +47,9 @@ class BackgroundProcess {
   }
 
   handleTabUpdated(tabId, changeInfo, tab) {
+    console.log('handleTabUpdated', tab);
+    console.log('page', this._page);
+    //this.pages.push()
     if (changeInfo.url) {
       browser.tabs.sendMessage(tabId, {
         message: actions.TAB_UPDATED
@@ -57,6 +61,7 @@ class BackgroundProcess {
   // _pages = []
   // _page = {}
   handleTabActivated(info) {
+    console.log('set-active-page-----', info);
     try {
       browser.tabs.sendMessage(info.tabId, {
         message: actions.TAB_UPDATED
