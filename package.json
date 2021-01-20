@@ -14,7 +14,7 @@
     "watch:dev": "npm run build:dev -- --watch"
   },
   "dependencies": {
-    "gsap": "^2.1.2",
+    "gsap": "^3.6.0",
     "materialize-css": "^1.0.0-rc.2",
     "pouch-vue": "^0.3.4",
     "pouchdb": "^7.1.1",
